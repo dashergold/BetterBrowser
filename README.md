@@ -1,1 +1,1 @@
-"# BetterBrowser" 
+# BetterBrowser
