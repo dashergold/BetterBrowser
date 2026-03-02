@@ -17,10 +17,13 @@ public class BrowserController {
     private TabPane tabPane;
    @FXML
     public void initialize() {
-       createNewTab();
+       Tab initalTab = createNewTab();
+       tabPane.getTabs().add(initalTab);
+       tabPane.getTabs().add(newTabButton());
+       tabPane.getSelectionModel().select(initalTab);
        System.out.println("program running");
    }
-   public void createNewTab() {
+   public Tab createNewTab() {
        try {
            System.out.println("trying to load fxml");
            FXMLLoader loader = new FXMLLoader(getClass().getResource("tab.fxml"));
@@ -32,13 +35,24 @@ public class BrowserController {
            Tab tab = new Tab("New tab");
            tab.setContent(root);
 
-           tabPane.getTabs().add(tab);
-           tabPane.getSelectionModel().select(tab);
+           return tab;
        }
+
        catch(IOException e) {
            e.printStackTrace();
        }
-
+    return null;
+   }
+   private Tab newTabButton() {
+       Tab addTab = new Tab("+");
+       addTab.setClosable(false);
+       tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
+           if(newTab == addTab) {
+               tabPane.getTabs().add(tabPane.getTabs().size() - 1, createNewTab());
+               tabPane.getSelectionModel().select(tabPane.getTabs().size() - 2);
+           }
+       });
+       return addTab;
    }
 
 }
