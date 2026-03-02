@@ -7,4 +7,6 @@ module org.webbrowser.browser {
 
     opens org.webbrowser.browser to javafx.fxml;
     exports org.webbrowser.browser;
+
+    exports Tests;
 }

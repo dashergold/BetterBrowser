@@ -31,6 +31,7 @@ public class BrowserController {
 
            Tab tab = new Tab("New tab");
            tab.setContent(root);
+
            tabPane.getTabs().add(tab);
            tabPane.getSelectionModel().select(tab);
        }
