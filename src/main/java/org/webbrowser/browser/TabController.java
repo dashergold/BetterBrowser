@@ -2,11 +2,13 @@ package org.webbrowser.browser;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 public class TabController implements Runnable{
+    private Tab tab;
     @FXML
     private TextField searchField;
 
@@ -16,6 +18,11 @@ public class TabController implements Runnable{
     @FXML
     public void initialize() {
         engine = webView.getEngine();
+        engine.titleProperty().addListener((obs, oldTitle, newTitle) -> {
+            if(newTitle != null && tab != null) {
+                tab.setText(newTitle);
+            }
+        });
     }
     @FXML
     public void enterURLContent(ActionEvent event) {
@@ -30,11 +37,14 @@ public class TabController implements Runnable{
         try {
 
             engine.load(url);
+
         } catch (Exception e) {
             System.out.println("Error occurred when fetching url "+url );
         }
     }
-
+    public void setTab(Tab tab) {
+        this.tab = tab;
+    }
 
     @Override
     public void run() {

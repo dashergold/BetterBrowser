@@ -32,8 +32,10 @@ public class BrowserController {
 
            TabController controller = loader.getController();
 
+
            Tab tab = new Tab("New tab");
            tab.setContent(root);
+           controller.setTab(tab);
 
            return tab;
        }
@@ -46,7 +48,7 @@ public class BrowserController {
    private Tab newTabButton() {
        Tab addTab = new Tab("+");
        addTab.setClosable(false);
-       tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
+       tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
            if(newTab == addTab) {
                tabPane.getTabs().add(tabPane.getTabs().size() - 1, createNewTab());
                tabPane.getSelectionModel().select(tabPane.getTabs().size() - 2);
