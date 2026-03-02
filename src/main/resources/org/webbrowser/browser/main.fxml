@@ -6,17 +6,9 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.BrowserController">
 
-   <top>
-      <FlowPane fx:id="nav" prefHeight="56.0">
-         <children>
-            <TextField fx:id="searchField" prefWidth="300.0" onAction="#enterURLContent"/>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#enterURLContent" text="Search"/>
-         </children>
-      </FlowPane>
-   </top>
-
    <center>
-      <WebView fx:id="result"/>
+      <TabPane fx:id="tabPane"/>
+
    </center>
 
 </BorderPane>

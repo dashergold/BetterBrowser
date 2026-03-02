@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.web.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.webbrowser.browser.TabController"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <FlowPane fx:id="nav" prefHeight="56.0">
+            <children>
+                <TextField fx:id="searchField" prefWidth="300.0" onAction="#enterURLContent"/>
+                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#enterURLContent" text="Search"/>
+            </children>
+        </FlowPane>
+    </top>
+
+    <center>
+        <WebView fx:id="webView"/>
+    </center>
+
+
+</BorderPane>
