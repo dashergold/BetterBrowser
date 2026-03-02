@@ -3,18 +3,9 @@ package org.webbrowser.browser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 
 public class BrowserController {
     @FXML
@@ -26,16 +17,20 @@ public class BrowserController {
     private WebEngine engine;
 
     @FXML
-    public void onButtonClick(ActionEvent event) {
-        String text = searchField.getText();
-        System.out.println(text);
+    public void enterURLContent(ActionEvent event) {
+        search();
+    }
+
+    private void search() {
+        String url = searchField.getText().trim();
+        if(!url.startsWith("http")) {url = "https://"+url;}
+        System.out.println(url);
         engine = result.getEngine();
         try {
-            engine.load(text);
+            engine.load(url);
         } catch (Exception e) {
-            System.out.println("Error occurred when fetching url");
+            System.out.println("Error occurred when fetching url "+url );
         }
-
     }
 
 }
