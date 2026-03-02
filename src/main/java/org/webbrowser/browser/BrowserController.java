@@ -29,28 +29,13 @@ public class BrowserController {
     public void onButtonClick(ActionEvent event) {
         String text = searchField.getText();
         System.out.println(text);
+        engine = result.getEngine();
         try {
-            URL url = new URL(searchField.getText().trim());
-            fetchHTML(url);
+            engine.load(text);
         } catch (Exception e) {
             System.out.println("Error occurred when fetching url");
         }
 
     }
-    private void fetchHTML(URL url) throws IOException {
-        engine = result.getEngine();
-        URLConnection connection = url.openConnection();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
-        StringBuilder content = new StringBuilder();
-        String line;
-        while((line = reader.readLine()) != null) {
-            content.append(line).append("\n");
 
-        }
-        reader.close();
-        buildHTML(content.toString());
-    }
-    private void buildHTML(String html) {
-        engine.loadContent(html);
-    }
 }
