@@ -6,8 +6,15 @@
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.BrowserController">
 
    <center>
-      <TabPane fx:id="tabPane" prefHeight="78.0" prefWidth="3314.0" />
+      <TabPane fx:id="tabPane" prefHeight="324.0" prefWidth="3314.0" />
       
    </center>
+   <top>
+      <HBox prefHeight="35.0" prefWidth="3314.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" text="History" onAction="#openHistory"/>
+         </children>
+      </HBox>
+   </top>
 
 </BorderPane>

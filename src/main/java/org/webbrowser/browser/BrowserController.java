@@ -25,13 +25,13 @@ public class BrowserController {
    }
    public Tab createNewTab() {
        try {
+           //souts could be placed in a log file for future reference
            System.out.println("trying to load fxml");
            FXMLLoader loader = new FXMLLoader(getClass().getResource("tab.fxml"));
            Parent root =  loader.load();
            System.out.println("Fxml loaded");
 
            TabController controller = loader.getController();
-
 
            Tab tab = new Tab("New tab");
            tab.setContent(root);
@@ -55,6 +55,25 @@ public class BrowserController {
            }
        });
        return addTab;
+   }
+
+   @FXML
+   private void openHistory() {
+        try {
+            System.out.println("trying to open history");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
+            Parent root = loader.load();
+            System.out.println("history tab loaded");
+
+            HistoryController controller = loader.getController();
+            Tab historyTab = new Tab("History");
+            historyTab.setContent(root);
+            tabPane.getTabs().add(tabPane.getTabs().size() - 1,historyTab);
+            tabPane.getSelectionModel().select(tabPane.getTabs().size() -2);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
    }
 
 }
