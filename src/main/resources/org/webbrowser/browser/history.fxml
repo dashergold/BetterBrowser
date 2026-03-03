@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.webbrowser.browser.HistoryController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label>Hello History</Label>
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.HistoryController">
+   <top>
+      <Button mnemonicParsing="false" text="Clear browser history" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <HBox id="table" alignment="TOP_CENTER" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="tableColLeft" alignment="TOP_CENTER" minWidth="200.0">
+               <children>
+                  <Label text="Date Acessed" />
+               </children></VBox>
+            <VBox fx:id="tableColRight" alignment="TOP_CENTER" minWidth="200.0">
+               <children>
+                  <Label text="URL" />
+               </children></VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
