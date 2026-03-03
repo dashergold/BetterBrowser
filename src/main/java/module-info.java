@@ -4,6 +4,7 @@ module org.webbrowser.browser {
 
     requires com.dlsc.formsfx;
     requires javafx.web;
+    requires java.sql;
 
     opens org.webbrowser.browser to javafx.fxml;
     exports org.webbrowser.browser;

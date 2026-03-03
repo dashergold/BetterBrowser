@@ -5,6 +5,7 @@ target/
 .kotlin
 planning.txt
 .env
+*.drawio
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

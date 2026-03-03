@@ -15,7 +15,7 @@ import java.io.IOException;
 public class BrowserController {
    @FXML
     private TabPane tabPane;
-   @FXML
+
     public void initialize() {
        Tab initalTab = createNewTab();
        tabPane.getTabs().add(initalTab);
