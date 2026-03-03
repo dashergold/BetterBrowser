@@ -1,9 +1,11 @@
 package org.webbrowser.browser;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
@@ -15,16 +17,31 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class TabController {
+    private static final String DEFAULT_BROWSER = "google.com"; //todo make this interchangeable in settings
     private Tab tab;
     @FXML
     private TextField searchField;
 
     @FXML
+    private Button backButton;
+    @FXML
+    private Button forwardButton;
+    private WebHistory history;
+
+    @FXML
     private WebView webView;
     private WebEngine engine;
-    @FXML
+
     public void initialize() {
         engine = webView.getEngine();
+        searchField.setText(DEFAULT_BROWSER);
+        search();
+        history = engine.getHistory();
+
+        backButton.disableProperty().bind(history.currentIndexProperty().isEqualTo(0));
+
+        forwardButton.disableProperty().bind(history.currentIndexProperty().isEqualTo(Bindings.size(history.getEntries()).subtract(1)));
+
         titleHandler();
         locationHandler();
 
@@ -49,7 +66,14 @@ public class TabController {
             }
         });
     }
-
+    @FXML
+    public void backward() {
+        history.go(-1);
+    }
+    @FXML
+    public void forward() {
+        history.go(1);
+    }
 
 
     @FXML
