@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class HistoryController {
 
-    private Connection connection;
+    private static Connection connection;
     private HashMap<String, String> historyMap = new HashMap<>();
 
     @FXML
@@ -18,15 +18,28 @@ public class HistoryController {
     @FXML
     private VBox tableColRight;
 
+
+    public static void appendToDB(String date, String url) {
+        try {
+            String query = "INSERT INTO historydata (date, url) VALUES (?,?)";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1,date);
+            stmt.setString(2,url);
+            stmt.executeUpdate();
+            System.out.println(date + " and " + url + " was entered into the database");
+
+        }
+        catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void initialize() {
-        connectToDB();
         createTableIfAbsent();
         loadHistory();
+
     }
     private void loadHistory() {
-
-
-
         try {
             String query = "SELECT date, url FROM historydata";
             Statement stmt = connection.createStatement();
@@ -45,9 +58,6 @@ public class HistoryController {
             tableColRight.getChildren().add(new Label(r));
 
         });
-
-
-
     }
 
     private void createTableIfAbsent() {
@@ -64,7 +74,7 @@ public class HistoryController {
             throw new RuntimeException(e);
         }
     }
-    private void connectToDB() {
+    public static void connectToDB() {
         /**
          * !!!FOR MYSQL IN INTELLIJ!!!
          * Create a .env file
@@ -88,4 +98,5 @@ public class HistoryController {
             throw new RuntimeException(e);
         }
     }
+
 }

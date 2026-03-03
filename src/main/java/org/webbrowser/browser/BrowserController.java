@@ -65,6 +65,8 @@ public class BrowserController {
             Parent root = loader.load();
             System.out.println("history tab loaded");
 
+
+
             HistoryController controller = loader.getController();
             Tab historyTab = new Tab("History");
             historyTab.setContent(root);

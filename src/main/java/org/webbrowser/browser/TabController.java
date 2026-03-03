@@ -1,11 +1,18 @@
 package org.webbrowser.browser;
 
+import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class TabController {
     private Tab tab;
@@ -18,21 +25,40 @@ public class TabController {
     @FXML
     public void initialize() {
         engine = webView.getEngine();
+        titleHandler();
+        locationHandler();
+
+
+    }
+    private void titleHandler() {
         engine.titleProperty().addListener((obs, oldTitle, newTitle) -> {
             if(newTitle != null && tab != null) {
                 tab.setText(newTitle);
             }
         });
-
     }
+    private void locationHandler() {
+        engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if(newState == Worker.State.SUCCEEDED) {
+                String url = engine.getLocation();
+                String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                searchField.setText(url);
+                HistoryController.appendToDB(date, url);
+                //System.out.println(url + " "+ time);
 
+            }
+        });
+    }
 
 
 
     @FXML
     public void enterURLContent(ActionEvent event) {
         search();
+
     }
+
+
 
     private void search() {
         String url = searchField.getText().trim();
