@@ -39,6 +39,7 @@ public class HistoryController {
 
     }
     private void loadHistory() {
+
         try {
             String query = "SELECT date, url FROM historydata ORDER BY date DESC";
             Statement stmt = connection.createStatement();
@@ -55,6 +56,23 @@ public class HistoryController {
         }
 
     }
+    @FXML
+    private void deleteHistory() {
+
+        try {
+            String query = "TRUNCATE TABLE historydata";
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+            while(tableColLeft.getChildren().size()>1) {
+                tableColLeft.getChildren().removeLast();
+                tableColRight.getChildren().removeLast();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
     private void createTableIfAbsent() {
 
@@ -62,8 +80,7 @@ public class HistoryController {
             String query = "CREATE TABLE IF NOT EXISTS HistoryData (" +
                     "date VARCHAR(50)," +
                     "url VARCHAR(500))";
-            Statement stmt;
-            stmt = connection.createStatement();
+            Statement stmt = connection.createStatement();
             stmt.execute(query);
             System.out.println("method passed");
         } catch (SQLException e) {

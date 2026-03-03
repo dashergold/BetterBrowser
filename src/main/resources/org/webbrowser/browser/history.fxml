@@ -5,7 +5,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.HistoryController">
    <top>
-      <Button mnemonicParsing="false" text="Clear browser history" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" text="Clear browser history" BorderPane.alignment="CENTER" onAction="#deleteHistory" />
    </top>
    <center>
       <HBox id="table" alignment="TOP_CENTER" prefWidth="200.0" BorderPane.alignment="CENTER">
