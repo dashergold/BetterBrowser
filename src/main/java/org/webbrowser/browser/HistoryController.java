@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class HistoryController {
 
     private static Connection connection;
-    private HashMap<String, String> historyMap = new HashMap<>();
 
     @FXML
     private VBox tableColLeft;
@@ -41,23 +40,20 @@ public class HistoryController {
     }
     private void loadHistory() {
         try {
-            String query = "SELECT date, url FROM historydata";
+            String query = "SELECT date, url FROM historydata ORDER BY date DESC";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
                 String date = rs.getString("date");
                 String url = rs.getString("url");
-                historyMap.put(date,url);
+                tableColLeft.getChildren().add(new Label(date));
+                tableColRight.getChildren().add(new Label(url));
             }
         }
         catch(SQLException e) {
             throw new RuntimeException(e);
         }
-        historyMap.forEach((l, r) -> {
-            tableColLeft.getChildren().add(new Label(l));
-            tableColRight.getChildren().add(new Label(r));
 
-        });
     }
 
     private void createTableIfAbsent() {
