@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-public class TabController implements Runnable{
+public class TabController {
     private Tab tab;
     @FXML
     private TextField searchField;
@@ -23,7 +23,12 @@ public class TabController implements Runnable{
                 tab.setText(newTitle);
             }
         });
+
     }
+
+
+
+
     @FXML
     public void enterURLContent(ActionEvent event) {
         search();
@@ -46,8 +51,8 @@ public class TabController implements Runnable{
         this.tab = tab;
     }
 
-    @Override
-    public void run() {
-        System.out.println("thread tab running");
-    }
+
+
+
+
 }

@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 .kotlin
 planning.txt
+.env
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
