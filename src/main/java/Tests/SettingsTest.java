@@ -18,7 +18,7 @@ public class SettingsTest extends Application {
     private void openSettingsWindow(double y, double x) {
         try {
             SettingsWindow settings = new SettingsWindow();
-            settings.show(x,y);
+            settings.show(x,y, 1000, 100);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

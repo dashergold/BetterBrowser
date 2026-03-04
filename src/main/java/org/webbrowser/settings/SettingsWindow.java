@@ -12,17 +12,19 @@ import java.io.IOException;
  * @author Axel
  */
 public class SettingsWindow {
+    private static final double DEFAULT_WIDTH = 400;
     private Stage stage;
     public SettingsWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/settings.fxml"));
-        Scene scene = new Scene(loader.load(), 400, 1000);
+        Scene scene = new Scene(loader.load(), DEFAULT_WIDTH, 1000);
         stage = new Stage();
         stage.setTitle("Settings");
         stage.setScene(scene);
     }
-    public void show(double x, double y) {
-        stage.setX(x);
-        stage.setY(y);
+    public void show(double x, double y, double windowHeight, double windowWith) {
+        stage.setX(x+windowWith-DEFAULT_WIDTH-15);
+        stage.setY(y+5);
+        stage.setHeight(windowHeight);
         stage.show();
     }
 
