@@ -1,7 +1,10 @@
 package org.webbrowser.browser;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
@@ -16,9 +19,11 @@ public class HistoryController {
     private static Connection connection;
 
     @FXML
-    private VBox tableColLeft;
+    private TableView<HistoryEntry> historyTable;
     @FXML
-    private VBox tableColRight;
+    private TableColumn<HistoryEntry, String> dateCol;
+    @FXML
+    private TableColumn<HistoryEntry, String> urlCol;
 
 
 
@@ -39,10 +44,19 @@ public class HistoryController {
 
     public void initialize() {
         createTableIfAbsent();
+
+        dateCol.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDate())
+        );
+        urlCol.setCellValueFactory(cellData ->
+            new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUrl())
+        );
+
         loadHistory();
 
     }
     private void loadHistory() {
+        ObservableList<HistoryEntry> entries = javafx.collections.FXCollections.observableArrayList();
 
         try {
             String query = "SELECT date, url FROM historydata ORDER BY date DESC";
@@ -51,9 +65,9 @@ public class HistoryController {
             while(rs.next()) {
                 String date = rs.getString("date");
                 String url = rs.getString("url");
-                tableColLeft.getChildren().add(new Label(date));
-                tableColRight.getChildren().add(new Label(url));
+                entries.add(new HistoryEntry(date,url));
             }
+            historyTable.setItems(entries);
         }
         catch(SQLException e) {
             throw new RuntimeException(e);
@@ -64,13 +78,10 @@ public class HistoryController {
     private void deleteHistory() {
 
         try {
-            String query = "TRUNCATE TABLE historydata";
+            String query = "DELETE FROM historydata";
             Statement stmt = connection.createStatement();
             stmt.execute(query);
-            while(tableColLeft.getChildren().size()>1) {
-                tableColLeft.getChildren().removeLast();
-                tableColRight.getChildren().removeLast();
-            }
+            historyTable.getItems().clear();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -92,13 +103,13 @@ public class HistoryController {
         }
     }
     public static void connectToDB() {
-        /**
-         * !!!FOR MYSQL IN INTELLIJ!!!
-         * Create a .env file
-         * Link the .env file through launcher configurations
-         * Set DB_URL to the url to the database (e.g. jdbc:mysql://localhost:3306/MyDatabase)
-         * Set DB_USER to the username of the MySQL database
-         * set DB_PASSWORD to the password of the MySQL database
+        /*
+          !!!FOR MYSQL IN INTELLIJ!!!
+          Create a .env file
+          Link the .env file through launcher configurations
+          Set DB_URL to the url to the database (e.g. jdbc:mysql://localhost:3306/MyDatabase)
+          Set DB_USER to the username of the MySQL database
+          set DB_PASSWORD to the password of the MySQL database
          */
         final String URL = System.getenv("DB_URL");
         final String USERNAME = System.getenv("DB_USER");
@@ -113,6 +124,20 @@ public class HistoryController {
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private class HistoryEntry {
+        private final String date;
+        private final String url;
+        public HistoryEntry(String date, String url) {
+            this.date = date;
+            this.url = url;
+        }
+        public String getDate() {
+            return date;
+        }
+        public String getUrl() {
+            return url;
         }
     }
 

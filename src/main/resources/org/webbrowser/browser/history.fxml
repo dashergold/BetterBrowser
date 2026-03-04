@@ -8,17 +8,11 @@
       <Button mnemonicParsing="false" text="Clear browser history" BorderPane.alignment="CENTER" onAction="#deleteHistory" />
    </top>
    <center>
-      <HBox id="table" alignment="TOP_CENTER" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="tableColLeft" alignment="TOP_CENTER" minWidth="200.0">
-               <children>
-                  <Label text="Date Acessed" />
-               </children></VBox>
-            <VBox fx:id="tableColRight" alignment="TOP_CENTER" minWidth="200.0">
-               <children>
-                  <Label text="URL" />
-               </children></VBox>
-         </children>
-      </HBox>
+      <TableView fx:id="historyTable">
+         <columns>
+            <TableColumn fx:id="dateCol" text="Date" prefWidth="200"/>
+            <TableColumn fx:id="urlCol" text="URL" prefWidth="600"/>
+         </columns>
+      </TableView>
    </center>
 </BorderPane>
