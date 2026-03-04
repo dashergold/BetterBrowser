@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * @author Axel
+ * @since 2026
+ */
 public class BrowserApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {

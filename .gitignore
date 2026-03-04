@@ -6,6 +6,7 @@ target/
 planning.txt
 .env
 *.drawio
+/javadoc/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

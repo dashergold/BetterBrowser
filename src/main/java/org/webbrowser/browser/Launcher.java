@@ -2,8 +2,12 @@ package org.webbrowser.browser;
 
 import javafx.application.Application;
 
+/**
+ * @author Axel
+ * @since 2026
+ */
 public class Launcher {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         HistoryController.connectToDB();
         Application.launch(BrowserApplication.class, args);
 

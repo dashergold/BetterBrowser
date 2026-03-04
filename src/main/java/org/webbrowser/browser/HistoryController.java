@@ -7,7 +7,10 @@ import javafx.scene.layout.VBox;
 
 import java.sql.*;
 import java.util.HashMap;
-
+/**
+ * @author Axel
+ * @since 2026
+ */
 public class HistoryController {
 
     private static Connection connection;
@@ -16,6 +19,7 @@ public class HistoryController {
     private VBox tableColLeft;
     @FXML
     private VBox tableColRight;
+
 
 
     public static void appendToDB(String date, String url) {

@@ -11,7 +11,11 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.io.IOException;
-
+import org.webbrowser.settings.SettingsWindow;
+/**
+ * @author Axel
+ * @since 2026
+ */
 public class BrowserController {
    @FXML
     private TabPane tabPane;
@@ -76,6 +80,16 @@ public class BrowserController {
         catch(IOException e) {
             e.printStackTrace();
         }
+   }
+   @FXML
+    private void openSettings() {
+       try {
+           SettingsWindow settingsWindow = new SettingsWindow();
+           settingsWindow.show(800,100); //hard coded, fix
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
+
    }
 
 }

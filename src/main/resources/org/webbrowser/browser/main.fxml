@@ -10,9 +10,10 @@
       
    </center>
    <top>
-      <HBox prefHeight="35.0" prefWidth="3314.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="3314.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="History" onAction="#openHistory"/>
+            <Button mnemonicParsing="false" onAction="#openSettings" text="Settings" />
+            <Button mnemonicParsing="false" onAction="#openHistory" text="History" />
          </children>
       </HBox>
    </top>
