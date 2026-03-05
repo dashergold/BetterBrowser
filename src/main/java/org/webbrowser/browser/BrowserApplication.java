@@ -21,8 +21,7 @@ public class BrowserApplication extends Application {
         primaryStage = stage;
         loadConfig();
         FXMLLoader fxmlLoader = new FXMLLoader(BrowserApplication.class.getResource("main.fxml"));
-        //change size to 1920:1080
-        Scene scene = new Scene(fxmlLoader.load(), 400, 400); //default ot 1920x1080
+        Scene scene = new Scene(fxmlLoader.load(), 800, 700); //default at 1920x1080
         primaryStage.setTitle("Browser");
         primaryStage.setScene(scene);
 
