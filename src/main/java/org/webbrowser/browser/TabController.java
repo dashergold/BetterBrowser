@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  * @since 2026
  */
 public class TabController {
-    private static String defaultBrowser = "https://google.com";
+    private static String defaultBrowser;
     private Tab tab;
     @FXML
     private TextField searchField;
@@ -101,8 +101,9 @@ public class TabController {
         }
     }
 
-    private static void setDefaultBrowser(String browser) {
+    public static void setDefaultBrowser(String browser) {
         defaultBrowser = browser;
+        System.out.println(defaultBrowser);
     }
 
 

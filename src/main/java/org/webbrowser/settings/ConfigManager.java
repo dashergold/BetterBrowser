@@ -20,7 +20,7 @@ public class ConfigManager {
 
     public static HashMap<String, String> getConfig() {
         loadConfig();
-        return null;
+        return config;
     }
     private static void loadConfig() {
         try {
