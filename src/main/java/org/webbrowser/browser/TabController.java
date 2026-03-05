@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  * @since 2026
  */
 public class TabController {
-    private static final String DEFAULT_BROWSER = "google.com"; //todo make this interchangeable in settings
+    private static String defaultBrowser = "https://google.com";
     private Tab tab;
     @FXML
     private TextField searchField;
@@ -36,7 +36,7 @@ public class TabController {
 
     public void initialize() {
         engine = webView.getEngine();
-        searchField.setText(DEFAULT_BROWSER);
+        searchField.setText(defaultBrowser);
         search();
         history = engine.getHistory();
 
@@ -99,6 +99,10 @@ public class TabController {
         } catch (Exception e) {
             System.out.println("Error occurred when fetching url " + url);
         }
+    }
+
+    private static void setDefaultBrowser(String browser) {
+        defaultBrowser = browser;
     }
 
 

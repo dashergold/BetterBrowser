@@ -7,6 +7,7 @@ planning.txt
 .env
 *.drawio
 /javadoc/
+/src/main/java/org/webbrowser/Configurations/*
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
