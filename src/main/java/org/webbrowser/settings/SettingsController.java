@@ -2,8 +2,10 @@ package org.webbrowser.settings;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import org.webbrowser.browser.BrowserApplication;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,6 +55,16 @@ public class SettingsController {
     private void saveChanges() {
         String newBrowser = browsers.get(defaultBrowserSelectionBox.getValue());
         editConfig("default-browser",newBrowser);
+        BrowserApplication.loadConfig();
+    }
+    @FXML
+    private void resetChanges() {
+        ConfigManager.createDefaultConfig();
+        BrowserApplication.loadConfig();
+        String defaultBrowser = getDefaultBrowserLabel();
+        defaultBrowserSelectionBox.getSelectionModel().select(defaultBrowser);
+
+
     }
 
     private void editConfig(String key, String value) {

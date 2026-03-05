@@ -18,7 +18,11 @@
          <children>
             <Label text="Default Engine:" />
             <ComboBox fx:id="defaultBrowserSelectionBox" prefWidth="150.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" text="Save  changes" GridPane.rowIndex="2" onAction="#saveChanges"/>
+             <FlowPane GridPane.rowIndex="2">
+                 <Button mnemonicParsing="false" onAction="#saveChanges" text="Save Changes" />
+               <Button mnemonicParsing="false" onAction="#resetChanges" text="Default" />
+
+             </FlowPane>
          </children>
       </GridPane>
    </children>

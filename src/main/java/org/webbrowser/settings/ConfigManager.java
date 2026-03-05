@@ -49,7 +49,7 @@ public class ConfigManager {
             throw new RuntimeException(e);
         }
     }
-    private static void createDefaultConfig() {
+    public static void createDefaultConfig() {
         Element root = new Element("configuration");
         Document doc = new Document(root);
         Element settings = new Element("settings");
@@ -89,6 +89,6 @@ public class ConfigManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        BrowserApplication.loadConfig();
+
     }
 }
