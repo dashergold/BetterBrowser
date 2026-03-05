@@ -6,6 +6,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.webbrowser.browser.BrowserApplication;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -88,5 +89,6 @@ public class ConfigManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        BrowserApplication.loadConfig();
     }
 }

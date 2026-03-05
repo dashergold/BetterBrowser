@@ -41,7 +41,7 @@ public class BrowserApplication extends Application {
     public static double getWindowWidth() {
         return primaryStage.getWidth();
     }
-    private void loadConfig() {
+    public static void loadConfig() {
         HashMap<String, String> config = ConfigManager.getConfig();
         String defaultBrowser = null;
         for(String s: config.keySet()) {
