@@ -40,6 +40,8 @@ public class TabController {
         search();
         history = engine.getHistory();
 
+
+
         backButton.disableProperty().bind(history.currentIndexProperty().isEqualTo(0));
         forwardButton.disableProperty().bind(history.currentIndexProperty().isEqualTo(Bindings.size(history.getEntries()).subtract(1)));
 
@@ -55,6 +57,10 @@ public class TabController {
     @FXML
     public void forward() {
         history.go(1);
+    }
+    @FXML
+    public void reload() {
+        engine.reload();
     }
 
     @FXML

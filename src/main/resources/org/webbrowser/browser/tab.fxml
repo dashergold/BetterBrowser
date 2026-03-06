@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.*?>
 
 <BorderPane prefHeight="400.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.TabController">
     <top>
-        <FlowPane fx:id="nav" prefHeight="31.0" prefWidth="1044.0">
+        <HBox fx:id="nav" alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="1044.0">
             <children>
-            <Button mnemonicParsing="false" text="&lt;-" onAction="#backward" fx:id="backButton"/>
-            <Button mnemonicParsing="false" text="-&gt;" onAction="#forward" fx:id="forwardButton"/>
-                <TextField fx:id="searchField" alignment="CENTER_LEFT" onAction="#enterURLContent" prefHeight="26.0" prefWidth="918.0" />
-                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#enterURLContent" text="Search" />
+                <Button fx:id="backButton" minWidth="30" mnemonicParsing="false" onAction="#backward" text="&lt;-" />
+                <Button fx:id="forwardButton" minWidth="30" mnemonicParsing="false" onAction="#forward" text="-&gt;" />
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0" text="⟳" minWidth="30" onAction="#reload"/>
+                <TextField fx:id="searchField" alignment="CENTER_LEFT" onAction="#enterURLContent" prefHeight="26.0" prefWidth="892.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="searchButton" minWidth="70" mnemonicParsing="false" onAction="#enterURLContent" text="Search">
+                    <HBox.margin>
+                        <Insets left="80" />
+                    </HBox.margin>
+                </Button>
             </children>
-        </FlowPane>
+        </HBox>
     </top>
 
     <center>

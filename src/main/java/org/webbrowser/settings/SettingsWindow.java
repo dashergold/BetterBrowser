@@ -3,6 +3,7 @@ package org.webbrowser.settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class SettingsWindow {
         stage = new Stage();
         stage.setTitle("Settings");
         stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
     }
     public void show(double x, double y, double windowHeight, double windowWith) {
         stage.setX(x+windowWith-DEFAULT_WIDTH-15);
