@@ -9,7 +9,10 @@ module org.webbrowser.browser {
 
     opens org.webbrowser.browser to javafx.fxml;
     opens org.webbrowser.settings to javafx.fxml;
+    opens org.webbrowser.accounts to javafx.fxml;
+
     exports org.webbrowser.browser;
     exports org.webbrowser.settings;
+    exports org.webbrowser.accounts;
     exports Tests;
 }

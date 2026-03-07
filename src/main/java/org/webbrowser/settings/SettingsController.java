@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import org.webbrowser.accounts.AccountWindow;
 import org.webbrowser.browser.BrowserApplication;
 
 import java.io.IOException;
@@ -57,14 +58,14 @@ public class SettingsController {
         editConfig("default-browser",newBrowser);
         BrowserApplication.loadConfig();
     }
+
     @FXML
-    private void resetChanges() {
-        ConfigManager.createDefaultConfig();
-        BrowserApplication.loadConfig();
-        String defaultBrowser = getDefaultBrowserLabel();
-        defaultBrowserSelectionBox.getSelectionModel().select(defaultBrowser);
-
-
+    private void openAccountWindow() {
+        try {
+            AccountWindow accountWindow = new AccountWindow();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void editConfig(String key, String value) {

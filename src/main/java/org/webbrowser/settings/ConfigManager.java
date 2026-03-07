@@ -37,6 +37,8 @@ public class ConfigManager {
             settings.forEach(e -> {
                 config.put(e.getAttributeValue("key"),e.getAttributeValue("value"));
             });
+            Element account = doc.getRootElement().getChild("account");
+
             for(String s: config.keySet()) {
                 System.out.println(s + " : " +config.get(s));
             }
@@ -54,7 +56,14 @@ public class ConfigManager {
         Document doc = new Document(root);
         Element settings = new Element("settings");
         root.addContent(settings);
-        settings.addContent(new Element("setting").setAttribute("key","default-browser").setAttribute("value","https://google.com"));
+        settings.addContent(new Element("setting")
+                .setAttribute("key","default-browser")
+                .setAttribute("value","https://google.com"));
+        //contains placeholder data for now because of testing purposes
+        root.addContent(new Element("account")
+                .setAttribute("username","USERNAME")
+                .setAttribute("email","axel@gmail.com")
+                .setAttribute("password","password123"));
         writeXMLFile(doc);
 
     }

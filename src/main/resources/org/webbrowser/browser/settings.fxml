@@ -20,9 +20,16 @@
             <ComboBox fx:id="defaultBrowserSelectionBox" prefWidth="150.0" GridPane.columnIndex="1" />
              <FlowPane GridPane.rowIndex="2">
                  <Button mnemonicParsing="false" onAction="#saveChanges" text="Save Changes" />
-               <Button mnemonicParsing="false" onAction="#resetChanges" text="Default" />
+
 
              </FlowPane>
+            <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label text="currenctAcc" />
+                  <Button mnemonicParsing="false" text="Account settings" onAction="#openAccountWindow"/>
+               </children>
+            </FlowPane>
+            <Label text="Account:" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
