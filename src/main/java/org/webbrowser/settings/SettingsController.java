@@ -19,7 +19,7 @@ import java.util.Map;
 public class SettingsController {
     //todo figure out how to separate the xml from this class into the ConfigManager class
     //todo this class should only be used to handle changes from the javafx scene (rn default browser)
-    private static HashMap<String, String> config;
+    private String defaultBrowser;
 
     @FXML
     private ComboBox<String> defaultBrowserSelectionBox;
@@ -33,17 +33,14 @@ public class SettingsController {
 
 
     public void initialize() {
-        config = ConfigManager.getConfig();
+        defaultBrowser = ConfigManager.getDefaultBrowser();
 
         browserOptions.addAll(browsers.keySet());
         defaultBrowserSelectionBox.setItems(browserOptions);
-        String defaultBrowser = getDefaultBrowserLabel();
-        defaultBrowserSelectionBox.getSelectionModel().select(defaultBrowser);
 
-
+        defaultBrowserSelectionBox.getSelectionModel().select(getDefaultBrowserLabel());
     }
     private String getDefaultBrowserLabel() {
-        String defaultBrowser = config.get("default-browser");
         for(Map.Entry<String, String> entry: browsers.entrySet()) {
             if(entry.getValue().equals(defaultBrowser)) {
                 return entry.getKey();
@@ -52,12 +49,23 @@ public class SettingsController {
         return null;
     }
 
+
     @FXML
     private void saveChanges() {
-        String newBrowser = browsers.get(defaultBrowserSelectionBox.getValue());
-        editConfig("default-browser",newBrowser);
+        HashMap<String, String> config = new HashMap<>();
+        config.put("default-browser",browsers.get(defaultBrowserSelectionBox.getValue()));
+        //for other future settings: config.put("setting","get the setting");
+
+        ConfigManager.editSettingsConfig(config);
         BrowserApplication.loadConfig();
+
     }
+
+
+
+
+
+
 
     @FXML
     private void openAccountWindow() {
@@ -68,14 +76,6 @@ public class SettingsController {
         }
     }
 
-    private void editConfig(String key, String value) {
-        for(String s: config.keySet()) {
-            if(s.equals(key)) {
-                config.put(s,value);
-            }
-        }
-        ConfigManager.editConfig(config);
-    }
 
 
 }

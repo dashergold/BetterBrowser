@@ -7,6 +7,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.webbrowser.browser.BrowserApplication;
+import org.webbrowser.browser.TabController;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,30 +19,24 @@ import java.util.List;
  */
 public class ConfigManager {
     private static final String FILE_PATH = "src/main/java/org/webbrowser/Configurations/config.xml";
-
-    private static HashMap<String, String> config = new HashMap<>();
+    private static HashMap<String, String> settingsConfig = new HashMap<>();
 
 
     //todo manage xml config documents
 
-    public static HashMap<String, String> getConfig() {
-        loadConfig();
-        return config;
-    }
-    private static void loadConfig() {
+
+    public static void loadConfig() {
         try {
             File file = new File(FILE_PATH);
             SAXBuilder builder = new SAXBuilder();
             Document doc = builder.build(file);
             List<Element> settings = doc.getRootElement().getChild("settings").getChildren();
             settings.forEach(e -> {
-                config.put(e.getAttributeValue("key"),e.getAttributeValue("value"));
+                settingsConfig.put(e.getAttributeValue("key"),e.getAttributeValue("value"));
             });
             Element account = doc.getRootElement().getChild("account");
 
-            for(String s: config.keySet()) {
-                System.out.println(s + " : " +config.get(s));
-            }
+            TabController.setDefaultBrowser(settingsConfig.get("default-browser"));
 
         }  catch (IOException e) {
             System.out.println("couldnt find config, generating default config");
@@ -67,21 +62,25 @@ public class ConfigManager {
         writeXMLFile(doc);
 
     }
-    public static void editConfig(HashMap<String,String> newConfig) {
-        config = newConfig;
+    public static void editSettingsConfig(HashMap<String,String> newSettingsConfig) {
+        //todo
+        settingsConfig = newSettingsConfig;
         saveConfig();
 
     }
+
     private static void saveConfig() {
         Element root = new Element("configuration");
         Document doc = new Document(root);
         Element settings = new Element("settings");
         root.addContent(settings);
-        for(String key: config.keySet()) {
-            settings.addContent(new Element("setting").setAttribute("key",key).setAttribute("value",config.get(key)));
+        for(String key: settingsConfig.keySet()) {
+            settings.addContent(new Element("setting").setAttribute("key",key).setAttribute("value",settingsConfig.get(key)));
         }
         writeXMLFile(doc);
     }
+
+
 
     private static void writeXMLFile(Document doc) {
         XMLOutputter pretty = new XMLOutputter(Format.getPrettyFormat());
@@ -99,5 +98,9 @@ public class ConfigManager {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static String getDefaultBrowser() {
+        return settingsConfig.get("default-browser");
     }
 }

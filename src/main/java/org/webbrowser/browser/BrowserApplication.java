@@ -42,14 +42,7 @@ public class BrowserApplication extends Application {
         return primaryStage.getWidth();
     }
     public static void loadConfig() {
-        HashMap<String, String> config = ConfigManager.getConfig();
-        String defaultBrowser = null;
-        for(String s: config.keySet()) {
-            if(s.equals("default-browser")) {
-                defaultBrowser = config.get(s);
-            }
-        }
-        TabController.setDefaultBrowser(defaultBrowser);
+        ConfigManager.loadConfig();
     }
 
 
