@@ -25,7 +25,7 @@
              </FlowPane>
             <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label text="currenctAcc" />
+                  <Label text="test" fx:id="currentAcc" />
                   <Button mnemonicParsing="false" text="Account settings" onAction="#openAccountWindow"/>
                </children>
             </FlowPane>

@@ -1,10 +1,12 @@
 package org.webbrowser.settings;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import org.webbrowser.accounts.AccountWindow;
 import org.webbrowser.browser.BrowserApplication;
 
@@ -19,7 +21,12 @@ import java.util.Map;
 public class SettingsController {
     //todo figure out how to separate the xml from this class into the ConfigManager class
     //todo this class should only be used to handle changes from the javafx scene (rn default browser)
+
+
     private String defaultBrowser;
+    private static String accountLabel;
+    @FXML
+    private Label currentAcc;
 
     @FXML
     private ComboBox<String> defaultBrowserSelectionBox;
@@ -33,7 +40,9 @@ public class SettingsController {
 
 
     public void initialize() {
+        currentAcc.setText(accountLabel);
         defaultBrowser = ConfigManager.getDefaultBrowser();
+
 
         browserOptions.addAll(browsers.keySet());
         defaultBrowserSelectionBox.setItems(browserOptions);
@@ -60,7 +69,9 @@ public class SettingsController {
         BrowserApplication.loadConfig();
 
     }
-
+    public static void setAccountLabel(String accountName) {
+        accountLabel = accountName;
+    }
 
 
 

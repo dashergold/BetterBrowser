@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 
 import java.sql.*;
 import java.util.HashMap;
+//TODO THIS AND ACCOUNT SQL SHOULD BE MOVED TO A SEPARATE FILE E.G. "SQLHANDLER"
+
 /**
  * @author Axel
  * @since 2026
@@ -43,6 +45,7 @@ public class HistoryController {
     }
 
     public void initialize() {
+        System.out.println("history controller initialized");
         createTableIfAbsent();
 
         dateCol.setCellValueFactory(cellData ->

@@ -6,6 +6,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.webbrowser.accounts.AccountController;
 import org.webbrowser.browser.BrowserApplication;
 import org.webbrowser.browser.TabController;
 
@@ -35,6 +36,7 @@ public class ConfigManager {
                 settingsConfig.put(e.getAttributeValue("key"),e.getAttributeValue("value"));
             });
             Element account = doc.getRootElement().getChild("account");
+            AccountController.handleAccountFromConfig(account.getAttributeValue("email"));
 
             TabController.setDefaultBrowser(settingsConfig.get("default-browser"));
 
@@ -57,8 +59,7 @@ public class ConfigManager {
         //contains placeholder data for now because of testing purposes
         root.addContent(new Element("account")
                 .setAttribute("username","USERNAME")
-                .setAttribute("email","axel@gmail.com")
-                .setAttribute("password","password123"));
+                .setAttribute("email","usermail@host.com"));
         writeXMLFile(doc);
 
     }
