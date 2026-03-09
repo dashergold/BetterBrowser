@@ -1,12 +1,11 @@
 package org.webbrowser.settings;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.AccountWindow;
 import org.webbrowser.browser.BrowserApplication;
 
@@ -24,7 +23,8 @@ public class SettingsController {
 
 
     private String defaultBrowser;
-    private static String accountLabel;
+    private static Account account;
+
     @FXML
     private Label currentAcc;
 
@@ -40,7 +40,7 @@ public class SettingsController {
 
 
     public void initialize() {
-        currentAcc.setText(accountLabel);
+        currentAcc.setText(account.isRegistered()?account.getUsername():"not signed in");
         defaultBrowser = ConfigManager.getDefaultBrowser();
 
 
@@ -69,8 +69,12 @@ public class SettingsController {
         BrowserApplication.loadConfig();
 
     }
-    public static void setAccountLabel(String accountName) {
-        accountLabel = accountName;
+    public static void setAccount(Account account ) {
+
+        SettingsController.account = account;
+
+
+
     }
 
 

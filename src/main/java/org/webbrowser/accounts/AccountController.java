@@ -44,6 +44,24 @@ public class AccountController {
             throw new RuntimeException(e);
         }
     }
+    private static Account getValidAccount(String email) {
+        try{
+            String query = "SELECT username, password FROM accounts WHERE email = ?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                String u = rs.getString("username");
+                String p = rs.getString("password");
+
+                Account account = new Account(u,email, p);
+                return account;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private static boolean isRegisteredAccount(String email) {
         try {
             String query = "SELECT 1 FROM accounts WHERE email = ?";
@@ -58,9 +76,15 @@ public class AccountController {
     }
     public static void handleAccountFromConfig(String email) {
         if(!isRegisteredAccount(email)) {
-            SettingsController.setAccountLabel("Not signed in");
+            Account account = new Account();
+            System.out.println(account.toString());
+            SettingsController.setAccount(account);
+
         } else {
-            SettingsController.setAccountLabel(email);
+
+            Account account = getValidAccount(email);
+            System.out.println(account.toString());
+            SettingsController.setAccount(account);
         }
     }
 }
