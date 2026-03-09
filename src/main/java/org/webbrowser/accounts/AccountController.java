@@ -2,19 +2,26 @@ package org.webbrowser.accounts;
 
 import org.webbrowser.settings.SettingsController;
 
+import java.io.IOException;
 import java.sql.*;
 
 
 //TODO THIS AND HISTORY SQL SHOULD BE MOVED TO A SEPARATE FILE E.G. "SQLHANDLER"
 public class AccountController {
     private static Connection connection;
+    private static Account account;
 
 
     public void initialize() {
         System.out.println("account manager initialized");
         createTableIfAbsent();
 
+
     }
+
+
+
+
     public void createTableIfAbsent() {
         try {
             String query = "CREATE TABLE IF NOT EXISTS accounts(" +
@@ -76,15 +83,17 @@ public class AccountController {
     }
     public static void handleAccountFromConfig(String email) {
         if(!isRegisteredAccount(email)) {
-            Account account = new Account();
+            account = new Account();
             System.out.println(account.toString());
             SettingsController.setAccount(account);
+            AccountWindow.setAccount(account);
 
         } else {
 
-            Account account = getValidAccount(email);
+            account = getValidAccount(email);
             System.out.println(account.toString());
             SettingsController.setAccount(account);
+            AccountWindow.setAccount(account);
         }
     }
 }

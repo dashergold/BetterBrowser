@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.accounts.SignInController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label text="Login" />
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label text="Email:" />
+                  <TextField promptText="Email" fx:id="emailField"/>
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label text="Password:" />
+                  <PasswordField promptText="Password" fx:id="passwordField"/>
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Sign in" onAction="#handleLogin"/>
+                  <Label text="Don't have an account?" />
+                  <Hyperlink text="Register" onAction="#goToRegister"/>
+               </children>
+            </FlowPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
