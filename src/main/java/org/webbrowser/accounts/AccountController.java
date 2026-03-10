@@ -1,5 +1,6 @@
 package org.webbrowser.accounts;
 
+import org.webbrowser.settings.ConfigManager;
 import org.webbrowser.settings.SettingsController;
 
 import java.io.IOException;
@@ -81,12 +82,14 @@ public class AccountController {
             return false;
         }
     }
-    public static void handleAccountFromConfig(String email) {
+    public static Account handleAccountFromConfig(String email) {
         if(!isRegisteredAccount(email)) {
             account = new Account();
+
             System.out.println(account.toString());
             SettingsController.setAccount(account);
             AccountWindow.setAccount(account);
+            return account;
 
         } else {
 
@@ -94,6 +97,30 @@ public class AccountController {
             System.out.println(account.toString());
             SettingsController.setAccount(account);
             AccountWindow.setAccount(account);
+            return account;
         }
     }
+    public static String signIn(String email, String password) {
+        if(!isRegisteredAccount(email)) {
+            return email + " is not a registered account";
+        }
+        account = getValidAccount(email);
+        if(!account.getPassword().equals(password)) {
+            return "incorrect password";
+        }
+        ConfigManager.editAccountConfig(account);
+        SettingsController.setAccount(account);
+        AccountWindow.setAccount(account);
+
+        return "sign in successful";
+
+    }
+    public void signOut() {
+        account = new Account();
+        ConfigManager.editAccountConfig(account);
+        SettingsController.setAccount(account);
+        AccountWindow.setAccount(account);
+    }
+
+
 }

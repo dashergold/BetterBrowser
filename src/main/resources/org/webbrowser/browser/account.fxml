@@ -9,7 +9,7 @@
          <children>
             <Label text="Signed in as:" />
             <Label fx:id="usernameLabel" text="" />
-            <Button mnemonicParsing="false" text="Sign out" />
+            <Button mnemonicParsing="false" text="Sign out" onAction="#signOut" />
          </children>
       </HBox>
    </center>

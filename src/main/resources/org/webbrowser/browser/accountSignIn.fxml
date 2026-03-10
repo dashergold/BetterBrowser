@@ -15,22 +15,23 @@
             <FlowPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label text="Email:" />
-                  <TextField promptText="Email" fx:id="emailField"/>
+                  <TextField fx:id="emailField" promptText="Email" />
                </children>
             </FlowPane>
             <FlowPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label text="Password:" />
-                  <PasswordField promptText="Password" fx:id="passwordField"/>
+                  <PasswordField fx:id="passwordField" promptText="Password" />
                </children>
             </FlowPane>
             <FlowPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Sign in" onAction="#handleLogin"/>
+                  <Button mnemonicParsing="false" onAction="#handleLogin" text="Sign in" />
                   <Label text="Don't have an account?" />
-                  <Hyperlink text="Register" onAction="#goToRegister"/>
+                  <Hyperlink onAction="#goToRegister" text="Register" />
                </children>
             </FlowPane>
+            <Label text="" fx:id="errorLabel"/>
          </children>
       </VBox>
    </center>

@@ -6,6 +6,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.AccountController;
 import org.webbrowser.browser.BrowserApplication;
 import org.webbrowser.browser.TabController;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ConfigManager {
     private static final String FILE_PATH = "src/main/java/org/webbrowser/Configurations/config.xml";
     private static HashMap<String, String> settingsConfig = new HashMap<>();
+    private static Account account = new Account();
 
 
     //todo manage xml config documents
@@ -35,8 +37,10 @@ public class ConfigManager {
             settings.forEach(e -> {
                 settingsConfig.put(e.getAttributeValue("key"),e.getAttributeValue("value"));
             });
-            Element account = doc.getRootElement().getChild("account");
-            AccountController.handleAccountFromConfig(account.getAttributeValue("email"));
+            Element accountElement = doc.getRootElement().getChild("account");
+
+
+            account = AccountController.handleAccountFromConfig(accountElement.getAttributeValue("email"));
 
             TabController.setDefaultBrowser(settingsConfig.get("default-browser"));
 
@@ -69,6 +73,10 @@ public class ConfigManager {
         saveConfig();
 
     }
+    public static void editAccountConfig(Account newAccount) {
+        account = newAccount;
+        saveConfig();
+    }
 
     private static void saveConfig() {
         Element root = new Element("configuration");
@@ -78,6 +86,7 @@ public class ConfigManager {
         for(String key: settingsConfig.keySet()) {
             settings.addContent(new Element("setting").setAttribute("key",key).setAttribute("value",settingsConfig.get(key)));
         }
+        root.addContent(new Element("account").setAttribute("username",account.getUsername()).setAttribute("email",account.getEmail()));
         writeXMLFile(doc);
     }
 
