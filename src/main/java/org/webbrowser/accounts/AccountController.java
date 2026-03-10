@@ -1,5 +1,9 @@
 package org.webbrowser.accounts;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import org.webbrowser.settings.ConfigManager;
 import org.webbrowser.settings.SettingsController;
@@ -14,11 +18,15 @@ import java.util.Random;
 public class AccountController {
     private static Connection connection;
     private static Account account;
+    @FXML
+    private Label usernameLabel;
 
 
     public void initialize() {
+        usernameLabel.setText(account.getUsername());
         System.out.println("account manager initialized");
         createTableIfAbsent();
+
 
 
     }
@@ -173,6 +181,33 @@ public class AccountController {
         ConfigManager.editAccountConfig(account);
         SettingsController.setAccount(account);
         AccountWindow.setAccount(account);
+    }
+    @FXML
+    private void deleteAccount() {
+        Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+        warning.setTitle("Warning!");
+        warning.setHeaderText("You are about to delete the account "+account.getUsername()+ ".");
+        warning.setContentText("This action is irreversible. Do you wish to proceed?");
+        warning.setGraphic(null);
+
+        Optional<ButtonType> result = warning.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                String query = "DELETE FROM accounts WHERE email = ?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setString(1,account.getEmail());
+                pstmt.executeUpdate();
+                System.out.println("account: "+account.getUsername()+ " was deleted from the database");
+                account = new Account();
+                ConfigManager.editAccountConfig(account);
+                SettingsController.setAccount(account);
+                AccountWindow.setAccount(account);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 
 
