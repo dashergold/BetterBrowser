@@ -1,10 +1,13 @@
 package org.webbrowser.accounts;
 
+import javafx.scene.control.TextInputDialog;
 import org.webbrowser.settings.ConfigManager;
 import org.webbrowser.settings.SettingsController;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Optional;
+import java.util.Random;
 
 
 //TODO THIS AND HISTORY SQL SHOULD BE MOVED TO A SEPARATE FILE E.G. "SQLHANDLER"
@@ -113,6 +116,56 @@ public class AccountController {
         AccountWindow.setAccount(account);
 
         return "sign in successful";
+
+    }
+    public static String signUp(String username, String email, String password) throws IOException{
+        if(!isRegisteredAccount(email)) {
+
+            EmailVerificationHandler.setEmailAddress(email);
+            Random rnd = new Random();
+            int code = rnd.nextInt(111111,999999);
+            EmailVerificationHandler.setCode(code);
+            EmailVerificationHandler.sendVerificationEmail();
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Text input dialog");
+            dialog.setHeaderText("enter code sent to " +email);
+            dialog.setContentText("code: ");
+            dialog.setGraphic(null);
+
+            Optional<String> result = dialog.showAndWait();
+            int userCode = 0;
+            if(result.isPresent()) {
+               userCode = Integer.parseInt(result.get());
+            }
+            if(userCode != code) {
+                return "Sign up failed, wrong code was entered";
+            } else {
+                registerAccount(username, email, password);
+                return "Sign up successful";
+            }
+
+        }
+        return email + " is already registered";
+    }
+    private static void registerAccount(String username, String email, String password) {
+        try {
+            String query = "INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1,email);
+            pstmt.setString(2,username);
+            pstmt.setString(3,password);
+            pstmt.executeUpdate();
+            System.out.println("account: "+username+ " was entered into the database");
+
+            account = new Account(username,email,password);
+            ConfigManager.editAccountConfig(account);
+            SettingsController.setAccount(account);
+            AccountWindow.setAccount(account);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public void signOut() {

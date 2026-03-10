@@ -1,6 +1,7 @@
 package org.webbrowser.accounts;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -13,10 +14,16 @@ public class SignUpController {
     private TextField emailField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private Label errorLabel;
 
     @FXML
-    private void handleSignup() {
-
+    private void handleSignup() throws IOException{
+        String username = usernameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String result = AccountController.signUp(username, email,password);
+        errorLabel.setText(result);
     }
     @FXML
     private void goToLogin() throws IOException {

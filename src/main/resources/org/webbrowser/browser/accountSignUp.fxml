@@ -37,7 +37,7 @@
                         <Hyperlink onAction="#goToLogin" text="Register" />
                     </children>
                 </FlowPane>
-            <FlowPane prefHeight="200.0" prefWidth="200.0" />
+                <Label fx:id="errorLabel"/>
             </children>
         </VBox>
     </center>

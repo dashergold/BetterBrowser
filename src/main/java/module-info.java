@@ -6,6 +6,8 @@ module org.webbrowser.browser {
     requires javafx.web;
     requires java.sql;
     requires org.jdom2;
+    requires jakarta.activation;
+    requires jakarta.mail;
 
     opens org.webbrowser.browser to javafx.fxml;
     opens org.webbrowser.settings to javafx.fxml;
