@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
+import org.webbrowser.browser.HistoryController;
 import org.webbrowser.settings.ConfigManager;
 import org.webbrowser.settings.SettingsController;
 
@@ -99,6 +100,7 @@ public class AccountController {
 
             System.out.println(account.toString());
             SettingsController.setAccount(account);
+            HistoryController.setAccount(account);
             AccountWindow.setAccount(account);
             return account;
 
@@ -107,6 +109,7 @@ public class AccountController {
             account = getValidAccount(email);
             System.out.println(account.toString());
             SettingsController.setAccount(account);
+            HistoryController.setAccount(account);
             AccountWindow.setAccount(account);
             return account;
         }
@@ -121,6 +124,7 @@ public class AccountController {
         }
         ConfigManager.editAccountConfig(account);
         SettingsController.setAccount(account);
+        HistoryController.setAccount(account);
         AccountWindow.setAccount(account);
 
         return "sign in successful";
@@ -169,6 +173,7 @@ public class AccountController {
             account = new Account(username,email,password);
             ConfigManager.editAccountConfig(account);
             SettingsController.setAccount(account);
+            HistoryController.setAccount(account);
             AccountWindow.setAccount(account);
 
         } catch (SQLException e) {
@@ -180,6 +185,7 @@ public class AccountController {
         account = new Account();
         ConfigManager.editAccountConfig(account);
         SettingsController.setAccount(account);
+        HistoryController.setAccount(account);
         AccountWindow.setAccount(account);
     }
     @FXML
@@ -201,6 +207,7 @@ public class AccountController {
                 account = new Account();
                 ConfigManager.editAccountConfig(account);
                 SettingsController.setAccount(account);
+                HistoryController.setAccount(account);
                 AccountWindow.setAccount(account);
 
             } catch (SQLException e) {

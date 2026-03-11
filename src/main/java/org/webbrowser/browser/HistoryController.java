@@ -7,6 +7,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
+import org.webbrowser.accounts.Account;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -27,26 +28,34 @@ public class HistoryController {
     @FXML
     private TableColumn<HistoryEntry, String> urlCol;
 
+    private static Account account;
+
 
 
     public static void appendToDB(String date, String url) {
-        try {
-            String query = "INSERT INTO historydata (date, url) VALUES (?,?)";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1,date);
-            stmt.setString(2,url);
-            stmt.executeUpdate();
-            System.out.println(date + " and " + url + " was entered into the database");
+        if(account.isRegistered()) {
+            try {
 
-        }
-        catch(SQLException e) {
-            throw new RuntimeException(e);
+                String query = "INSERT INTO historydata (email, date, url) VALUES (?,?,?)";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                stmt.setString(1, account.getEmail());
+                stmt.setString(2, date);
+                stmt.setString(3, url);
+                stmt.executeUpdate();
+                System.out.println(date + " and " + url + " was entered into the database for user " + account.getUsername());
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
-
+    public static void setAccount(Account newAccount) {
+        account = newAccount;
+    }
     public void initialize() {
         System.out.println("history controller initialized");
-        createTableIfAbsent();
+        System.out.println(account.getEmail());
+
 
         dateCol.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDate())
@@ -59,21 +68,24 @@ public class HistoryController {
 
     }
     private void loadHistory() {
-        ObservableList<HistoryEntry> entries = javafx.collections.FXCollections.observableArrayList();
+        historyTable.getItems().clear();
+        if(account.isRegistered()) {
+            ObservableList<HistoryEntry> entries = javafx.collections.FXCollections.observableArrayList();
 
-        try {
-            String query = "SELECT date, url FROM historydata ORDER BY date DESC";
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()) {
-                String date = rs.getString("date");
-                String url = rs.getString("url");
-                entries.add(new HistoryEntry(date,url));
+            try {
+                String query = "SELECT date, url FROM historydata WHERE email = ? ORDER BY date DESC ";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, account.getEmail());
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    String date = rs.getString("date");
+                    String url = rs.getString("url");
+                    entries.add(new HistoryEntry(date, url));
+                }
+                historyTable.setItems(entries);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            historyTable.setItems(entries);
-        }
-        catch(SQLException e) {
-            throw new RuntimeException(e);
         }
 
     }
@@ -92,10 +104,11 @@ public class HistoryController {
 
     }
 
-    private void createTableIfAbsent() {
+    private static void createTableIfAbsent() {
 
         try {
-            String query = "CREATE TABLE IF NOT EXISTS HistoryData (" +
+            String query = "CREATE TABLE IF NOT EXISTS historydata (" +
+                    "email VARCHAR(100), "+
                     "date VARCHAR(50)," +
                     "url VARCHAR(500))";
             Statement stmt = connection.createStatement();
@@ -121,6 +134,7 @@ public class HistoryController {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             System.out.println("Database Connection successful");
+            createTableIfAbsent();
         }
         catch(ClassNotFoundException e) {
             throw new RuntimeException(e);

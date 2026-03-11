@@ -9,6 +9,7 @@ import org.jdom2.output.XMLOutputter;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.AccountController;
 import org.webbrowser.browser.BrowserApplication;
+import org.webbrowser.browser.HistoryController;
 import org.webbrowser.browser.TabController;
 
 import java.io.*;
@@ -41,6 +42,7 @@ public class ConfigManager {
 
 
             account = AccountController.handleAccountFromConfig(accountElement.getAttributeValue("email"));
+
 
             TabController.setDefaultBrowser(settingsConfig.get("default-browser"));
 
