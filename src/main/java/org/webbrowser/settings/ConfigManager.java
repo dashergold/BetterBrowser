@@ -15,6 +15,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @since 2026
  * @author Axel
@@ -22,17 +24,53 @@ import java.util.List;
 public class ConfigManager {
     private static final ConfigManager instance = new ConfigManager();
     private static final String FILE_PATH = "src/main/java/org/webbrowser/Configurations/config.xml";
-    private static HashMap<String, String> settingsConfig = new HashMap<>();
-    private static Account account = new Account();
 
     private AccountService accountService;
-
-
-
-
-    //todo manage xml config documents
+    private Map<String, String> settingsConfig = new HashMap<>();
+    private Account account = new Account();
 
     private ConfigManager() {}
+
+    private void writeXMLFile(Document doc) {
+        XMLOutputter pretty = new XMLOutputter(Format.getPrettyFormat());
+        String out = pretty.outputString(doc);
+        try {
+            File output = new File(FILE_PATH);
+            FileOutputStream fos = new FileOutputStream(output);
+            OutputStreamWriter writer = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+            writer.write(out);
+            writer.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void saveConfig() {
+        Element root = new Element("configuration");
+        Document doc = new Document(root);
+        Element settings = new Element("settings");
+        root.addContent(settings);
+        for(String key: settingsConfig.keySet()) {
+            settings.addContent(new Element("setting").setAttribute("key",key).setAttribute("value",settingsConfig.get(key)));
+        }
+
+        Element accountElement = new Element("account");
+
+        if (account.isRegistered()) {
+            accountElement.setAttribute("username", account.getUsername());
+            accountElement.setAttribute("email", account.getEmail());
+        } else {
+            accountElement.setAttribute("username", "");
+            accountElement.setAttribute("email", "");
+        }
+
+        root.addContent(accountElement);
+        writeXMLFile(doc);
+    }
 
     public void loadConfig() {
         try {
@@ -61,9 +99,7 @@ public class ConfigManager {
             throw new RuntimeException(e);
         }
     }
-    public static ConfigManager getInstance() {
-        return instance;
-    }
+
 
     public void createDefaultConfig() {
         Element root = new Element("configuration");
@@ -81,7 +117,7 @@ public class ConfigManager {
 
     }
     public void editSettingsConfig(HashMap<String,String> newSettingsConfig) {
-        //todo
+
         settingsConfig = newSettingsConfig;
         saveConfig();
 
@@ -92,43 +128,10 @@ public class ConfigManager {
         saveConfig();
     }
 
-    private void saveConfig() {
-        Element root = new Element("configuration");
-        Document doc = new Document(root);
-        Element settings = new Element("settings");
-        root.addContent(settings);
-        for(String key: settingsConfig.keySet()) {
-            settings.addContent(new Element("setting").setAttribute("key",key).setAttribute("value",settingsConfig.get(key)));
-        }
-        if(account.isRegistered()) {
-            root.addContent(new Element("account").setAttribute("username", account.getUsername()).setAttribute("email", account.getEmail()));
-        } else {
-            root.addContent(new Element("account").setAttribute("username", "").setAttribute("email", ""));
-        }
-        writeXMLFile(doc);
-    }
-
-
-
-    private void writeXMLFile(Document doc) {
-        XMLOutputter pretty = new XMLOutputter(Format.getPrettyFormat());
-        String out = pretty.outputString(doc);
-        try {
-            File output = new File(FILE_PATH);
-            FileOutputStream fos = new FileOutputStream(output);
-            OutputStreamWriter writer = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-            writer.write(out);
-            writer.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     public String getDefaultBrowser() {
         return settingsConfig.get("default-browser");
+    }
+    public static ConfigManager getInstance() {
+        return instance;
     }
 }

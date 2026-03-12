@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.settings.SettingsController">
+<FlowPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.settings.controller.SettingsController">
    <children>
       <GridPane prefHeight="91.0" prefWidth="399.0">
         <columnConstraints>

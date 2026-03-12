@@ -27,4 +27,6 @@ module org.webbrowser.browser {
     exports org.webbrowser.browser.controller;
     opens org.webbrowser.browser.service to javafx.fxml;
     exports org.webbrowser.browser.service;
+    exports org.webbrowser.settings.controller;
+    opens org.webbrowser.settings.controller to javafx.fxml;
 }
