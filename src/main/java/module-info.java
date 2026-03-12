@@ -21,4 +21,10 @@ module org.webbrowser.browser {
     exports Tests;
     exports org.webbrowser.accounts.controller;
     opens org.webbrowser.accounts.controller to javafx.fxml;
+    opens org.webbrowser.app to javafx.fxml;
+    exports org.webbrowser.app;
+    opens org.webbrowser.browser.controller to javafx.fxml;
+    exports org.webbrowser.browser.controller;
+    opens org.webbrowser.browser.service to javafx.fxml;
+    exports org.webbrowser.browser.service;
 }

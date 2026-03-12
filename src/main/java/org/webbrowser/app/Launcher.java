@@ -1,7 +1,8 @@
-package org.webbrowser.browser;
+package org.webbrowser.app;
 
 import javafx.application.Application;
-import org.webbrowser.accounts.controller.AccountController;
+import org.webbrowser.browser.BrowserApplication;
+import org.webbrowser.browser.controller.HistoryController;
 
 /**
  * @author Axel
@@ -9,7 +10,7 @@ import org.webbrowser.accounts.controller.AccountController;
  */
 public class Launcher {
     static void main(String[] args) {
-        HistoryController.connectToDB();
+
 
         Application.launch(BrowserApplication.class, args);
 

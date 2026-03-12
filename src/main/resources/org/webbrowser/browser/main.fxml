@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.BrowserController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.browser.controller.BrowserController">
 
    <center>
       <TabPane fx:id="tabPane" prefHeight="324.0" prefWidth="3314.0" />

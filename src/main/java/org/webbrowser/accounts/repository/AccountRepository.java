@@ -16,8 +16,8 @@ public class AccountRepository {
         String query = """
         CREATE TABLE IF NOT EXISTS accounts(
             email VARCHAR(100) PRIMARY KEY,
-            username VARCHAR(100),
-            password VARCHAR(100)
+            username TEXT,
+            password TEXT
         )
         """;
 

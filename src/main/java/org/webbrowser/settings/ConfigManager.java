@@ -7,9 +7,9 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.webbrowser.accounts.Account;
-import org.webbrowser.accounts.controller.AccountController;
 import org.webbrowser.accounts.service.AccountService;
-import org.webbrowser.browser.TabController;
+import org.webbrowser.browser.controller.TabController;
+import org.webbrowser.browser.service.TabService;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +26,7 @@ public class ConfigManager {
     private static Account account = new Account();
 
     private AccountService accountService;
+
 
 
 
@@ -50,6 +51,7 @@ public class ConfigManager {
 
 
             TabController.setDefaultBrowser(settingsConfig.get("default-browser"));
+
 
         }  catch (IOException e) {
             System.out.println("couldnt find config, generating default config");

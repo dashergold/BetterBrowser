@@ -15,6 +15,7 @@ public class AccountController {
     private final AccountService accountService = AccountService.getInstance();
     @FXML
     private Label usernameLabel;
+
     public void initialize() {
         account = accountService.getCurrentAccount();
         if(account != null) {

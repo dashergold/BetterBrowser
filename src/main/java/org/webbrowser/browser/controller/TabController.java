@@ -1,4 +1,4 @@
-package org.webbrowser.browser;
+package org.webbrowser.browser.controller;
 
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Worker;
@@ -10,7 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
+import org.webbrowser.browser.service.BrowserService;
+import org.webbrowser.browser.service.HistoryService;
+import org.webbrowser.browser.service.TabService;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,8 +23,13 @@ import java.time.format.DateTimeFormatter;
  * @since 2026
  */
 public class TabController {
+
+    private final HistoryService historyService = HistoryService.getInstance();
+
     private static String defaultBrowser;
     private Tab tab;
+    private TabService tabService;
+
     @FXML
     private TextField searchField;
 
@@ -28,89 +37,78 @@ public class TabController {
     private Button backButton;
     @FXML
     private Button forwardButton;
-    private WebHistory history;
 
     @FXML
     private WebView webView;
-    private WebEngine engine;
+
 
     public void initialize() {
-        engine = webView.getEngine();
+        tabService = new TabService(webView);
+        WebHistory history = tabService.getHistory();
+
         searchField.setText(defaultBrowser);
-        search();
-        history = engine.getHistory();
-
-
+        tabService.loadURL(defaultBrowser);
 
         backButton.disableProperty().bind(history.currentIndexProperty().isEqualTo(0));
         forwardButton.disableProperty().bind(history.currentIndexProperty().isEqualTo(Bindings.size(history.getEntries()).subtract(1)));
 
         titleHandler();
         locationHandler();
+
     }
 
     @FXML
     public void backward() {
-        history.go(-1);
+        tabService.back();
     }
 
     @FXML
     public void forward() {
-        history.go(1);
+        tabService.forward();
     }
     @FXML
     public void reload() {
-        engine.reload();
+        tabService.reload();
     }
 
     @FXML
     public void enterURLContent(ActionEvent event) {
-        search();
+        tabService.loadURL(searchField.getText());
     }
-
     public void setTab(Tab tab) {
         this.tab = tab;
     }
-
     private void titleHandler() {
-        engine.titleProperty().addListener((obs, oldTitle, newTitle) -> {
+        tabService.getEngine().titleProperty().addListener((obs, oldTitle, newTitle) -> {
             if (newTitle != null && tab != null) {
                 tab.setText(newTitle);
             }
         });
     }
-
     private void locationHandler() {
-        engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                String url = engine.getLocation();
+        tabService.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if(newState == Worker.State.SUCCEEDED) {
+                String url = tabService.getEngine().getLocation();
                 String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                searchField.setText(url);
-                HistoryController.appendToDB(date, url);
-                //System.out.println(url + " "+ time);
 
+                searchField.setText(url);
+                historyService.storeHistory(date, url);
             }
         });
     }
 
-    private void search() {
-        String url = searchField.getText().trim();
-        if (!url.startsWith("http")) {
-            url = "https://" + url;
-        }
-        System.out.println(url);
-        engine = webView.getEngine();
-        try {
-            engine.load(url);
-        } catch (Exception e) {
-            System.out.println("Error occurred when fetching url " + url);
-        }
-    }
-
     public static void setDefaultBrowser(String browser) {
         defaultBrowser = browser;
-        System.out.println(defaultBrowser);
     }
+
+
+
+
+
+
+
+
+
 
 
 }

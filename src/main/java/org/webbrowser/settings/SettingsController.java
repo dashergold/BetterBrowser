@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.AccountWindow;
 import org.webbrowser.accounts.service.AccountService;
-import org.webbrowser.browser.BrowserApplication;
 
 import java.io.IOException;
 import java.util.HashMap;
