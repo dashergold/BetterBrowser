@@ -16,10 +16,11 @@ import java.util.HashMap;
  */
 public class BrowserApplication extends Application {
     private static Stage primaryStage;
+    private final ConfigManager configManager = ConfigManager.getInstance();
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        loadConfig();
+        configManager.loadConfig();
         FXMLLoader fxmlLoader = new FXMLLoader(BrowserApplication.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 700); //default at 1920x1080
         primaryStage.setTitle("Browser");
@@ -41,9 +42,7 @@ public class BrowserApplication extends Application {
     public static double getWindowWidth() {
         return primaryStage.getWidth();
     }
-    public static void loadConfig() {
-        ConfigManager.loadConfig();
-    }
+
 
 
 }

@@ -1,35 +1,40 @@
-package org.webbrowser.accounts;
+package org.webbrowser.accounts.service;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import org.webbrowser.util.DialogUtil;
 
 import java.util.Properties;
+import java.util.Random;
 
-public class EmailVerificationHandler {
+public class EmailVerificationService {
     private static final String SENDER = System.getenv("EMAIL_EMAIL");
     private static final String PASSWORD = System.getenv("EMAIL_PASSWORD");
-    private static final String SERVER  = System.getenv("EMAIL_SERVER");
+    private static final String SERVER = System.getenv("EMAIL_SERVER");
     private static final String PORT = System.getenv("EMAIL_PORT");
-    private static int code;
-    private static String emailAddress;
 
-    public static void setCode(int randomCode) {
-        code = randomCode;
+    private String email;
+    private int code;
+    private int userCode;
 
-    }
-    public static void setEmailAddress(String email) {
-        emailAddress = email;
+    public EmailVerificationService(String email) {
+        this.email = email;
     }
 
-    public static void sendVerificationEmail() {
-        composeEmail();
+    public void sendVerification() {
+        Random rnd = new Random();
+        code = rnd.nextInt(100000,999999);
+        composeEmail(code);
+        userCode = DialogUtil.getUserInputCode(email);
     }
-    private static void composeEmail() {
+
+    public boolean isSuccessful() {
+        return code == userCode;
+    }
+
+    private void composeEmail(int code) {
         Properties props = new Properties();
         props.put("mail.smtp.auth","true");
         props.put("mail.smtp.starttls.enable","true");
@@ -42,13 +47,15 @@ public class EmailVerificationHandler {
                 return new PasswordAuthentication(SENDER, PASSWORD);
             }
         });
+
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(SENDER));
-            message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(emailAddress));
 
+            message.setFrom(new InternetAddress(SENDER));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject("Signup Verification Code");
             message.setText(String.valueOf(code));
+
             Transport.send(message);
         } catch (AddressException e) {
             throw new RuntimeException(e);

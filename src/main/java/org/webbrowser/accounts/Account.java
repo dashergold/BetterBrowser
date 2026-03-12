@@ -6,11 +6,7 @@ public class Account {
     private String password;
     private boolean registered = false;
 
-    public Account() {
-        this.username = "";
-        this.email = "";
-        this.password = "";
-    }
+    public Account() {    }
 
     public Account(String username, String email, String password) {
         this.username = username;
@@ -32,7 +28,7 @@ public class Account {
     }
     @Override
     public String toString() {
-        return username + " " + email +" "+ password;
+        return username + " (" + email +") :"+ password;
     }
     public boolean isRegistered() {
         return registered;

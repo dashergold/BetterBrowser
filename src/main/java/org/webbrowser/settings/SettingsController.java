@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.AccountWindow;
+import org.webbrowser.accounts.service.AccountService;
 import org.webbrowser.browser.BrowserApplication;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ public class SettingsController {
 
     private String defaultBrowser;
     private static Account account;
+    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final AccountService accountService = AccountService.getInstance();
+
 
     @FXML
     private Label currentAcc;
@@ -40,8 +44,9 @@ public class SettingsController {
 
 
     public void initialize() {
+        account = accountService.getCurrentAccount();
         currentAcc.setText(account.isRegistered()?account.getUsername():"not signed in");
-        defaultBrowser = ConfigManager.getDefaultBrowser();
+        defaultBrowser = configManager.getDefaultBrowser();
 
 
         browserOptions.addAll(browsers.keySet());
@@ -65,17 +70,11 @@ public class SettingsController {
         config.put("default-browser",browsers.get(defaultBrowserSelectionBox.getValue()));
         //for other future settings: config.put("setting","get the setting");
 
-        ConfigManager.editSettingsConfig(config);
-        BrowserApplication.loadConfig();
+        configManager.editSettingsConfig(config);
+        configManager.loadConfig();
 
     }
-    public static void setAccount(Account account ) {
 
-        SettingsController.account = account;
-
-
-
-    }
 
 
 

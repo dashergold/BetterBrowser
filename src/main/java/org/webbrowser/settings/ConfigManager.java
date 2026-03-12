@@ -7,9 +7,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.webbrowser.accounts.Account;
-import org.webbrowser.accounts.AccountController;
-import org.webbrowser.browser.BrowserApplication;
-import org.webbrowser.browser.HistoryController;
+import org.webbrowser.accounts.controller.AccountController;
+import org.webbrowser.accounts.service.AccountService;
 import org.webbrowser.browser.TabController;
 
 import java.io.*;
@@ -21,15 +20,20 @@ import java.util.List;
  * @author Axel
  */
 public class ConfigManager {
+    private static final ConfigManager instance = new ConfigManager();
     private static final String FILE_PATH = "src/main/java/org/webbrowser/Configurations/config.xml";
     private static HashMap<String, String> settingsConfig = new HashMap<>();
     private static Account account = new Account();
 
+    private AccountService accountService;
+
+
 
     //todo manage xml config documents
 
+    private ConfigManager() {}
 
-    public static void loadConfig() {
+    public void loadConfig() {
         try {
             File file = new File(FILE_PATH);
             SAXBuilder builder = new SAXBuilder();
@@ -40,8 +44,9 @@ public class ConfigManager {
             });
             Element accountElement = doc.getRootElement().getChild("account");
 
-
-            account = AccountController.handleAccountFromConfig(accountElement.getAttributeValue("email"));
+            accountService = AccountService.getInstance();
+            accountService.setCurrentAccount(accountElement.getAttributeValue("email"));
+            account = accountService.getCurrentAccount();
 
 
             TabController.setDefaultBrowser(settingsConfig.get("default-browser"));
@@ -54,7 +59,11 @@ public class ConfigManager {
             throw new RuntimeException(e);
         }
     }
-    public static void createDefaultConfig() {
+    public static ConfigManager getInstance() {
+        return instance;
+    }
+
+    public void createDefaultConfig() {
         Element root = new Element("configuration");
         Document doc = new Document(root);
         Element settings = new Element("settings");
@@ -69,18 +78,19 @@ public class ConfigManager {
         writeXMLFile(doc);
 
     }
-    public static void editSettingsConfig(HashMap<String,String> newSettingsConfig) {
+    public void editSettingsConfig(HashMap<String,String> newSettingsConfig) {
         //todo
         settingsConfig = newSettingsConfig;
         saveConfig();
 
     }
-    public static void editAccountConfig(Account newAccount) {
+    //todo try to change the account global variable to non static
+    public void editAccountConfig(Account newAccount) {
         account = newAccount;
         saveConfig();
     }
 
-    private static void saveConfig() {
+    private void saveConfig() {
         Element root = new Element("configuration");
         Document doc = new Document(root);
         Element settings = new Element("settings");
@@ -88,13 +98,17 @@ public class ConfigManager {
         for(String key: settingsConfig.keySet()) {
             settings.addContent(new Element("setting").setAttribute("key",key).setAttribute("value",settingsConfig.get(key)));
         }
-        root.addContent(new Element("account").setAttribute("username",account.getUsername()).setAttribute("email",account.getEmail()));
+        if(account.isRegistered()) {
+            root.addContent(new Element("account").setAttribute("username", account.getUsername()).setAttribute("email", account.getEmail()));
+        } else {
+            root.addContent(new Element("account").setAttribute("username", "").setAttribute("email", ""));
+        }
         writeXMLFile(doc);
     }
 
 
 
-    private static void writeXMLFile(Document doc) {
+    private void writeXMLFile(Document doc) {
         XMLOutputter pretty = new XMLOutputter(Format.getPrettyFormat());
         String out = pretty.outputString(doc);
         try {
@@ -112,7 +126,7 @@ public class ConfigManager {
 
     }
 
-    public static String getDefaultBrowser() {
+    public String getDefaultBrowser() {
         return settingsConfig.get("default-browser");
     }
 }
