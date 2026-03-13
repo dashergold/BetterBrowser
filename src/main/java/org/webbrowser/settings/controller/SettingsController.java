@@ -2,6 +2,7 @@ package org.webbrowser.settings.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -48,5 +49,10 @@ public class SettingsController {
     @FXML
     private void openAccountWindow() {
         settingsService.openAccountWindow();
+    }
+
+    @FXML
+    private void closeSettings() {
+        settingsService.closeSettings();
     }
 }

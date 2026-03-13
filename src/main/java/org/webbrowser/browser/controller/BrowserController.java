@@ -8,9 +8,10 @@ import javafx.scene.control.TabPane;
 
 import java.io.IOException;
 
+import javafx.scene.layout.BorderPane;
 import org.webbrowser.browser.BrowserApplication;
 import org.webbrowser.browser.service.BrowserService;
-import org.webbrowser.settings.SettingsWindow;
+
 /**
  * @author Axel
  * @since 2026
@@ -21,6 +22,9 @@ public class BrowserController {
 
    @FXML
     private TabPane tabPane;
+
+   @FXML
+   private BorderPane rootPane;
 
     public void initialize() {
        browserService.setTabPane(tabPane);
@@ -34,18 +38,7 @@ public class BrowserController {
    }
    @FXML
     private void openSettings() {
-        double windowHeight = BrowserApplication.getWindowHeight();
-        double windowWidth = BrowserApplication.getWindowWidth();
-        double windowX = BrowserApplication.getWindowX();
-        double windowY = BrowserApplication.getWindowY();
-
-       try {
-           SettingsWindow settingsWindow = new SettingsWindow();
-           settingsWindow.show(windowX,windowY,windowHeight, windowWidth); //hard coded, fix
-       } catch (IOException e) {
-           throw new RuntimeException(e);
-       }
-
+        browserService.openSettings(rootPane);
    }
 
 }

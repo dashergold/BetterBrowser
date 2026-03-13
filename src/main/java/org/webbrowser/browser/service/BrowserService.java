@@ -4,14 +4,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import org.webbrowser.accounts.service.AccountService;
 import org.webbrowser.browser.controller.TabController;
+import org.webbrowser.settings.service.SettingsService;
 
 import java.io.IOException;
 
 public class BrowserService {
     private static final BrowserService instance = new BrowserService();
     private HistoryService historyService = HistoryService.getInstance();
+    private SettingsService settingsService = SettingsService.getInstance();
     private TabPane tabPane;
 
     private BrowserService() {}
@@ -63,4 +66,7 @@ public class BrowserService {
         return instance;
     }
 
+    public void openSettings(BorderPane rootPane) {
+        settingsService.openSettings(rootPane);
+    }
 }

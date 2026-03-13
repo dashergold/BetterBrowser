@@ -2,6 +2,9 @@ package org.webbrowser.settings.service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.AccountWindow;
 import org.webbrowser.accounts.service.AccountService;
@@ -15,6 +18,8 @@ public class SettingsService {
     private static final SettingsService instance = new SettingsService();
     private final ConfigManager configManager = ConfigManager.getInstance();
     private final AccountService accountService = AccountService.getInstance();
+
+    private BorderPane rootPane;
 
     private SettingsService() {}
 
@@ -72,4 +77,20 @@ public class SettingsService {
         return instance;
     }
 
+    public void openSettings(BorderPane rootPane) {
+        this.rootPane = rootPane;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/settings.fxml"));
+            Parent settingsView = loader.load();
+            this.rootPane.setRight(settingsView);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void closeSettings() {
+        if (rootPane != null) {
+            rootPane.setRight(null);
+        }
+    }
 }
