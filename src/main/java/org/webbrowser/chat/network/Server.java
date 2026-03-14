@@ -55,8 +55,7 @@ public class Server implements Runnable{
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            System.out.println("io exception");
-            if(running) {throw new RuntimeException(e);}
+            System.out.println("IO error: "+ e.getMessage());
         } finally {
             close();
         }
@@ -70,6 +69,7 @@ public class Server implements Runnable{
             }
             for(ClientHandler c: clients) {
                 c.close();
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
