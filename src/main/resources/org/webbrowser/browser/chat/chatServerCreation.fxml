@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.chat.controller.ChatServerCreationController">
+   <children>
+      <Label text="Join a server:" />
+      <FlowPane alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0">
+         <children>
+            <Label text="IP:" />
+            <TextField fx:id="joinIpField"/>
+         </children>
+      </FlowPane>
+      <FlowPane alignment="TOP_CENTER" prefHeight="47.0" prefWidth="600.0">
+         <children>
+            <Label text="Port:" />
+            <TextField fx:id="joinPortField"/>
+         </children>
+      </FlowPane>
+      <Button mnemonicParsing="false" text="Go"  onAction="#joinServer"/>
+       <Label text="Create a server:" />
+       <FlowPane alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0">
+           <children>
+               <Label text="IP:" />
+               <TextField fx:id="createIpField"/>
+           </children>
+       </FlowPane>
+       <FlowPane alignment="TOP_CENTER" prefHeight="47.0" prefWidth="600.0">
+           <children>
+               <Label text="Port:" />
+               <TextField fx:id="createPortField"/>
+           </children>
+       </FlowPane>
+       <Button mnemonicParsing="false" text="Go" onAction="#createServer"/>
+   </children>
+</VBox>

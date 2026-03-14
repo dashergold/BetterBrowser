@@ -4,8 +4,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableView;
-import org.w3c.dom.Entity;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.service.AccountService;
 import org.webbrowser.browser.HistoryEntry;
@@ -26,7 +24,7 @@ public class HistoryService {
 
     public Tab createHistoryTab() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/history.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/history/history.fxml"));
             Parent root = loader.load();
             HistoryController controller = loader.getController();
             Tab tab = new Tab("History");

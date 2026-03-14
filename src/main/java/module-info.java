@@ -13,6 +13,14 @@ module org.webbrowser.browser {
     opens org.webbrowser.settings to javafx.fxml;
     opens org.webbrowser.accounts to javafx.fxml;
     opens org.webbrowser.database to javafx.fxml;
+    opens org.webbrowser.app to javafx.fxml;
+    opens org.webbrowser.browser.service to javafx.fxml;
+    opens org.webbrowser.accounts.controller to javafx.fxml;
+    opens org.webbrowser.settings.controller to javafx.fxml;
+    opens org.webbrowser.browser.controller to javafx.fxml;
+
+    opens org.webbrowser.chat.controller to javafx.fxml;
+    opens org.webbrowser.chat.service;
 
     exports org.webbrowser.browser;
     exports org.webbrowser.settings;
@@ -20,13 +28,9 @@ module org.webbrowser.browser {
     exports org.webbrowser.database;
     exports Tests;
     exports org.webbrowser.accounts.controller;
-    opens org.webbrowser.accounts.controller to javafx.fxml;
-    opens org.webbrowser.app to javafx.fxml;
     exports org.webbrowser.app;
-    opens org.webbrowser.browser.controller to javafx.fxml;
     exports org.webbrowser.browser.controller;
-    opens org.webbrowser.browser.service to javafx.fxml;
     exports org.webbrowser.browser.service;
     exports org.webbrowser.settings.controller;
-    opens org.webbrowser.settings.controller to javafx.fxml;
+
 }

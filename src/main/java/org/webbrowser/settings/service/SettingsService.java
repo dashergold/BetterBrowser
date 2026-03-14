@@ -80,7 +80,7 @@ public class SettingsService {
     public void openSettings(BorderPane rootPane) {
         this.rootPane = rootPane;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/settings.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/settings/settings.fxml"));
             Parent settingsView = loader.load();
             this.rootPane.setRight(settingsView);
         } catch (IOException e) {

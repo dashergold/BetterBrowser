@@ -16,9 +16,9 @@ public class AccountWindow {
     public AccountWindow() throws IOException {
         FXMLLoader loader;
         if(accountService.getCurrentAccount().isRegistered()) {
-            loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/account.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/account/account.fxml"));
         } else {
-            loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/accountSignIn.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/account/accountSignIn.fxml"));
         }
         Scene scene = new Scene(loader.load(),400,400);
         stage = new Stage();

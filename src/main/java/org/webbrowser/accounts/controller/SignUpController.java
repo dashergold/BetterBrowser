@@ -43,6 +43,6 @@ public class SignUpController {
     }
     @FXML
     private void goToLogin() throws IOException {
-        AccountWindow.switchScene("/org/webbrowser/browser/accountSignIn.fxml");
+        AccountWindow.switchScene("/org/webbrowser/browser/account/accountSignIn.fxml");
     }
 }

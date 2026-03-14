@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.webbrowser.chat.network.Client;
+import org.webbrowser.chat.network.Server;
 import org.webbrowser.settings.ConfigManager;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class BrowserApplication extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         configManager.loadConfig();
-        FXMLLoader fxmlLoader = new FXMLLoader(BrowserApplication.class.getResource("/org/webbrowser/browser/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BrowserApplication.class.getResource("/org/webbrowser/browser/browser/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 700); //default at 1920x1080
         primaryStage.setTitle("Browser");
         primaryStage.setScene(scene);
@@ -27,20 +29,25 @@ public class BrowserApplication extends Application {
 
 
         primaryStage.show();
-    }
-    public static double getWindowX() {
-        return primaryStage.getX();
-    }
-    public static double getWindowY() {
-        return primaryStage.getY();
-    }
-    public static double getWindowHeight() {
-        return primaryStage.getHeight();
-    }
-    public static double getWindowWidth() {
-        return primaryStage.getWidth();
-    }
 
+    }
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+
+
+
+        Client client = Client.getInstance();
+        if (client != null) {
+            client.close();
+        }
+        Server server = Server.getInstance();
+        if(server != null) {
+            server.close();
+        }
+
+
+    }
 
 
 }

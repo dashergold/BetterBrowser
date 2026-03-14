@@ -1,5 +1,6 @@
 package org.webbrowser.browser.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +20,8 @@ import org.webbrowser.browser.service.BrowserService;
 public class BrowserController {
 
     private final BrowserService browserService = BrowserService.getInstance();
+
+
 
    @FXML
     private TabPane tabPane;
@@ -40,5 +43,12 @@ public class BrowserController {
     private void openSettings() {
         browserService.openSettings(rootPane);
    }
+
+   @FXML
+    public void openChat() {
+        browserService.openChat(rootPane);
+    }
+
+
 
 }
