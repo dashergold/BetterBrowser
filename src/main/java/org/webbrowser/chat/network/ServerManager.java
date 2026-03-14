@@ -6,7 +6,7 @@ import java.util.List;
 public class ServerManager {
     private static final ServerManager instance = new ServerManager();
 
-    private final List<Server> servers = new ArrayList<>();
+    private Server server;
     private ServerManager() {}
 
     public static ServerManager getInstance() {
@@ -14,18 +14,19 @@ public class ServerManager {
     }
     public Server createServer(String host, int port, Runnable runnable) {
         Server server = new Server(host, port, runnable);
-        this.servers.add(server);
+        this.server = server;
         return server;
     }
-    public void shutdownServers() {
-        for(Server s: servers) {
-            try {
-                s.close();
-            } catch (Exception e ) {
-                continue;
-            }
+    public void shutdownServer() {
 
+        try {
+            server.close();
+        } catch (Exception e ) {
+            e.printStackTrace();
         }
 
+    }
+    public Server getServer() {
+        return server;
     }
 }

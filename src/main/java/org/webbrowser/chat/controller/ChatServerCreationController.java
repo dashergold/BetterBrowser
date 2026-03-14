@@ -10,10 +10,12 @@ import org.webbrowser.chat.network.Client;
 import org.webbrowser.chat.network.ClientHandler;
 import org.webbrowser.chat.network.Server;
 import org.webbrowser.chat.network.ServerManager;
+import org.webbrowser.chat.service.ChatService;
 
 import java.io.IOException;
 
 public class ChatServerCreationController {
+    private final ChatService chatService = ChatService.getInstance();
     @FXML
     private TextField joinIpField;
     @FXML
@@ -43,7 +45,9 @@ public class ChatServerCreationController {
         Thread cThread = new Thread(client);
         cThread.setDaemon(true);
         cThread.start();
-        openChatWindow();
+        chatService.setClient(client);
+        chatService.openChat(rootPane);
+        //openChatWindow();
     }
     @FXML
     private void createServer() {
@@ -53,6 +57,7 @@ public class ChatServerCreationController {
         Server server = ServerManager.getInstance().createServer(ip, port, () -> {
 
             client = new Client(ip, port);
+            chatService.setClient(client);
             Thread cThread = new Thread(client);
             cThread.setDaemon(true);
             cThread.start();
@@ -63,9 +68,10 @@ public class ChatServerCreationController {
         sThread.setDaemon(true);
         sThread.start();
 
+        chatService.setServer(server);
 
-
-        openChatWindow();
+        chatService.openChat(rootPane);
+        //openChatWindow();
     }
 
     private void openChatWindow(){

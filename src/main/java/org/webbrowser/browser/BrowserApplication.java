@@ -42,7 +42,7 @@ public class BrowserApplication extends Application {
         if (client != null) {
             client.close();
         }
-        ServerManager.getInstance().shutdownServers();
+        ServerManager.getInstance().shutdownServer();
 
 
     }
