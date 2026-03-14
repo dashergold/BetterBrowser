@@ -27,11 +27,17 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
+
+
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+            for(String msg: server.getMessageHistory()) {
+                out.println(msg);
+            }
             String message;
             while(running && (message = in.readLine()) != null) {
+                server.addMessage(message);
                 server.broadcast(message);
             }
         } catch (IOException e) {

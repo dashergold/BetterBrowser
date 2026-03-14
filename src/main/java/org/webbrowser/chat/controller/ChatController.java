@@ -1,5 +1,6 @@
 package org.webbrowser.chat.controller;
 
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import org.webbrowser.chat.network.Client;
@@ -13,10 +14,17 @@ public class ChatController {
     @FXML
     private TextArea messagesField;
 
+
+
     private Client client;
 
     public void initialize() {
-        ChatService.getInstance().getMessages().addListener((javafx.collections.ListChangeListener<String>) change -> {
+        ChatService chatService = ChatService.getInstance();
+        for(String msg: chatService.getMessages()) {
+            messagesField.appendText(msg+"\n");
+        }
+
+        chatService.getMessages().addListener((javafx.collections.ListChangeListener<String>) change -> {
             while(change.next()) {
                 if(change.wasAdded()) {
                     for(String msg: change.getAddedSubList()) {

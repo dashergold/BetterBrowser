@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server implements Runnable{
+    private final List<String> messageHistory = new ArrayList<>();
     private String host;
     private int port;
     private Runnable onReady;
@@ -24,7 +25,12 @@ public class Server implements Runnable{
         this.port = port;
         this.onReady = onReady;
     }
-
+    public synchronized void addMessage(String message) {
+        messageHistory.add(message);
+    }
+    public synchronized List<String> getMessageHistory(){
+        return new ArrayList<>(messageHistory);
+    }
     public void broadcast(String message) {
         for(ClientHandler c: clients) {
             c.sendMessage(message);

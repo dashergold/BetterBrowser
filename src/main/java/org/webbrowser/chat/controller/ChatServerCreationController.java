@@ -47,7 +47,7 @@ public class ChatServerCreationController {
         cThread.start();
         chatService.setClient(client);
         chatService.openChat(rootPane);
-        //openChatWindow();
+
     }
     @FXML
     private void createServer() {
@@ -71,19 +71,8 @@ public class ChatServerCreationController {
         chatService.setServer(server);
 
         chatService.openChat(rootPane);
-        //openChatWindow();
+
     }
 
-    private void openChatWindow(){
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/chat/chat.fxml"));
-            Parent chatView = loader.load();
-            ChatController controller = loader.getController();
-            controller.setClient(client);
-            rootPane.setRight(chatView);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
