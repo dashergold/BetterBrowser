@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.webbrowser.chat.network.Client;
 import org.webbrowser.chat.network.Server;
+import org.webbrowser.chat.network.ServerManager;
 import org.webbrowser.settings.ConfigManager;
 
 import java.io.IOException;
@@ -41,10 +42,7 @@ public class BrowserApplication extends Application {
         if (client != null) {
             client.close();
         }
-        Server server = Server.getInstance();
-        if(server != null) {
-            server.close();
-        }
+        ServerManager.getInstance().shutdownServers();
 
 
     }

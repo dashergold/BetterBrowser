@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server implements Runnable{
-    private static final Server instance = new Server();
     private String host;
     private int port;
     private Runnable onReady;
@@ -20,10 +19,6 @@ public class Server implements Runnable{
 
     private static List<ClientHandler> clients = new ArrayList<>();
 
-    private Server() {}
-    public static Server getInstance() {
-        return instance;
-    }
     public Server(String host, int port, Runnable onReady)  {
         this.host = host;
         this.port = port;
@@ -55,9 +50,12 @@ public class Server implements Runnable{
                 th.setDaemon(true);
                 th.start();
             }
+
+
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+            System.out.println("io exception");
             if(running) {throw new RuntimeException(e);}
         } finally {
             close();
@@ -78,4 +76,6 @@ public class Server implements Runnable{
         }
         running = false;
     }
+
+
 }

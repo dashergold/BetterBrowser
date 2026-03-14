@@ -9,6 +9,7 @@ import org.webbrowser.browser.controller.BrowserController;
 import org.webbrowser.chat.network.Client;
 import org.webbrowser.chat.network.ClientHandler;
 import org.webbrowser.chat.network.Server;
+import org.webbrowser.chat.network.ServerManager;
 
 import java.io.IOException;
 
@@ -49,16 +50,14 @@ public class ChatServerCreationController {
         String ip = createIpField.getText();
         int port = Integer.parseInt(createPortField.getText());
 
+        Server server = ServerManager.getInstance().createServer(ip, port, () -> {
 
-        Server server = new Server(ip, port, () -> {
-
-            client = new Client(ip,port);
+            client = new Client(ip, port);
             Thread cThread = new Thread(client);
             cThread.setDaemon(true);
             cThread.start();
-
-
         });
+
 
         Thread sThread = new Thread(server);
         sThread.setDaemon(true);
