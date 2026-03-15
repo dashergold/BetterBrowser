@@ -74,4 +74,12 @@ public class Client implements Runnable{
         }
     }
 
+    public String getHost() {
+        return host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
 }

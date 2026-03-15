@@ -1,5 +1,6 @@
 package org.webbrowser.chat.controller;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,30 +22,35 @@ public class ChatController {
 
     private ChatService chatService = ChatService.getInstance();
 
+    private javafx.collections.ListChangeListener<String> messageListener;
+
+
 
 
     private Client client;
 
     public void initialize() {
+        messagesField.clear();
         ChatService chatService = ChatService.getInstance();
         connectionLabel.setText(chatService.getLabelText());
         for(String msg: chatService.getMessages()) {
             messagesField.appendText(msg+"\n");
         }
-
-        chatService.getMessages().addListener((javafx.collections.ListChangeListener<String>) change -> {
-            while(change.next()) {
-                if(change.wasAdded()) {
-                    for(String msg: change.getAddedSubList()) {
-                        messagesField.appendText(msg+"\n");
-
-                    }
-                }
-            }
-        });
+        messageListener = this::handleMessageChange;
+        chatService.getMessages().addListener(messageListener);
     }
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    private void handleMessageChange(javafx.collections.ListChangeListener.Change<? extends String> change) {
+        while (change.next()) {
+            if (change.wasAdded()) {
+                for (String msg : change.getAddedSubList()) {
+                    messagesField.appendText(msg + "\n");
+                }
+            }
+        }
     }
 
     @FXML
@@ -53,7 +59,8 @@ public class ChatController {
         if(msg == null || msg.isEmpty()) {
             return;
         }
-        client.sendMessage(msg);
+        chatService.sendMessage(msg);
+
         typingField.clear();
     }
     @FXML
@@ -62,6 +69,7 @@ public class ChatController {
     }
     @FXML
     private void disconnectClient() {
+        chatService.getMessages().removeListener(messageListener);
         chatService.disconnectClient();
     }
 }

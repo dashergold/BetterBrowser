@@ -15,6 +15,8 @@ import org.webbrowser.chat.network.Server;
 import org.webbrowser.chat.network.ServerManager;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,13 +109,25 @@ public class ChatService {
     }
 
     public String getLabelText() {
-        return "connected to: "+server.getHost()+", at port: "+server.getPort();
+        return "connected to: "+client.getHost()+", at port: "+client.getPort();
     }
 
     public void disconnectClient() {
         closeWindow();
         client.close();
-        client = null;
 
+        client = null;
+        messages.clear();
+
+    }
+
+    public void sendMessage(String msg) {
+        if(msg == null || msg.isEmpty()) {
+            return;
+        }
+        String message = account.getUsername()+": "+msg+"\t\t"+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+        if(client != null) {
+            client.sendMessage(message);
+        }
     }
 }
