@@ -5,8 +5,14 @@
 
 <VBox alignment="BOTTOM_RIGHT" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.chat.controller.ChatController">
    <children>
-      <Button text="Close"/>
-      <TextArea fx:id="messagesField" editable="false" prefHeight="294.0" prefWidth="400.0" VBox.vgrow="ALWAYS"/>
+      <FlowPane alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="400.0">
+         <children>
+            <Label text="Label" fx:id="connectionLabel"/>
+            <Button mnemonicParsing="false" text="Leave room" onAction="#disconnectClient"/>
+            <Button onAction="#close" text="Close" />
+         </children>
+      </FlowPane>
+      <TextArea fx:id="messagesField" editable="false" prefHeight="294.0" prefWidth="400.0" VBox.vgrow="ALWAYS" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <TextArea fx:id="typingField" prefHeight="100.0" prefWidth="300.0" />

@@ -3,6 +3,7 @@ package org.webbrowser.chat.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import org.webbrowser.browser.controller.BrowserController;
@@ -13,9 +14,13 @@ import org.webbrowser.chat.network.ServerManager;
 import org.webbrowser.chat.service.ChatService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatServerCreationController {
     private final ChatService chatService = ChatService.getInstance();
+    @FXML
+    private Label warningLabel;
     @FXML
     private TextField joinIpField;
     @FXML
@@ -28,7 +33,6 @@ public class ChatServerCreationController {
     private Client client;
 
     private BorderPane rootPane;
-
 
 
 
@@ -54,14 +58,26 @@ public class ChatServerCreationController {
         String ip = createIpField.getText();
         int port = Integer.parseInt(createPortField.getText());
 
+        if(!ChatService.getRunningServers().isEmpty()) {
+            for(Server s: ChatService.getRunningServers()) {
+                if(s.getHost().equals(ip) && s.getPort() == port) {
+                    warningLabel.setText("Address already in use");
+                    return;
+                }
+            }
+        }
+        client = new Client(ip,port);
+        chatService.setClient(client);
         Server server = ServerManager.getInstance().createServer(ip, port, () -> {
 
-            client = new Client(ip, port);
-            chatService.setClient(client);
+
+
             Thread cThread = new Thread(client);
             cThread.setDaemon(true);
             cThread.start();
+
         });
+        ChatService.addRunningServer(server);
 
 
         Thread sThread = new Thread(server);
@@ -72,6 +88,10 @@ public class ChatServerCreationController {
 
         chatService.openChat(rootPane);
 
+    }
+    @FXML
+    private void close() {
+        chatService.closeWindow();
     }
 
 

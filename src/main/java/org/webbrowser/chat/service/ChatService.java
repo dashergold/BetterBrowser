@@ -15,6 +15,8 @@ import org.webbrowser.chat.network.Server;
 import org.webbrowser.chat.network.ServerManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatService {
 
@@ -26,6 +28,8 @@ public class ChatService {
     private Server server;
     private Client client;
 
+    private static List<Server> runningServers = new ArrayList<>();
+
 
 
     private ChatService() {}
@@ -35,6 +39,12 @@ public class ChatService {
     }
     public void setClient(Client client) {
         this.client = client;
+    }
+    public static void addRunningServer(Server server) {
+        runningServers.add(server);
+    }
+    public static List<Server> getRunningServers() {
+        return runningServers;
     }
 
 
@@ -51,10 +61,7 @@ public class ChatService {
                 return;
             }
 
-
-
-
-            if (server != null || client != null) {
+            if (client != null) {
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/chat/chat.fxml"));
 
@@ -94,5 +101,19 @@ public class ChatService {
 
     public static ChatService getInstance() {
         return instance;
+    }
+    public void closeWindow() {
+        rootPane.setRight(null);
+    }
+
+    public String getLabelText() {
+        return "connected to: "+server.getHost()+", at port: "+server.getPort();
+    }
+
+    public void disconnectClient() {
+        closeWindow();
+        client.close();
+        client = null;
+
     }
 }

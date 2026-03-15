@@ -5,33 +5,39 @@
 
 <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.chat.controller.ChatServerCreationController">
    <children>
+      <FlowPane alignment="TOP_RIGHT" prefHeight="39.0" prefWidth="400.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#close" text="Close" />
+         </children>
+      </FlowPane>
       <Label text="Join a server:" />
       <FlowPane alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0">
          <children>
             <Label text="IP:" />
-            <TextField fx:id="joinIpField"/>
+            <TextField fx:id="joinIpField" />
          </children>
       </FlowPane>
       <FlowPane alignment="TOP_CENTER" prefHeight="47.0" prefWidth="600.0">
          <children>
             <Label text="Port:" />
-            <TextField fx:id="joinPortField"/>
+            <TextField fx:id="joinPortField" />
          </children>
       </FlowPane>
-      <Button mnemonicParsing="false" text="Go"  onAction="#joinServer"/>
+      <Button mnemonicParsing="false" onAction="#joinServer" text="Go" />
        <Label text="Create a server:" />
        <FlowPane alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0">
            <children>
                <Label text="IP:" />
-               <TextField fx:id="createIpField"/>
+               <TextField fx:id="createIpField" />
            </children>
        </FlowPane>
        <FlowPane alignment="TOP_CENTER" prefHeight="47.0" prefWidth="600.0">
            <children>
                <Label text="Port:" />
-               <TextField fx:id="createPortField"/>
+               <TextField fx:id="createPortField" />
            </children>
        </FlowPane>
-       <Button mnemonicParsing="false" text="Go" onAction="#createServer"/>
+       <Button mnemonicParsing="false" onAction="#createServer" text="Go" />
+      <Label text="" fx:id="warningLabel"/>
    </children>
 </VBox>

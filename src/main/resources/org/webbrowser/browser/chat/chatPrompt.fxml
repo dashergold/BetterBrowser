@@ -3,10 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.chat.controller.ChatPromptController">
    <children>
+      <FlowPane alignment="TOP_RIGHT" prefHeight="46.0" prefWidth="400.0">
+         <children>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Close" onAction="#close"/>
+         </children>
+      </FlowPane>
       <Label text="You need to be signed in to an account in order to use the chat feature" />
-      <Button mnemonicParsing="false" text="Sign in" onAction="#signIn"/>
+      <Button mnemonicParsing="false" onAction="#signIn" text="Sign in" />
    </children>
 </VBox>

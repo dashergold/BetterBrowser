@@ -83,5 +83,11 @@ public class Server implements Runnable{
         running = false;
     }
 
+    public String getHost() {
+        return host;
+    }
 
+    public int getPort() {
+        return port;
+    }
 }
