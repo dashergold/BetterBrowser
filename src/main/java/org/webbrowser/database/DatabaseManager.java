@@ -4,20 +4,53 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Utility class responsible for managing MySQL database connections.
+ * <p>
+ *     Uses environment variables to configure the connections:
+ *     <ul>
+ *         <li><b>DB_URL</b> - JDBC URL (e.g. jdbc:mysql://localhost:3306/MyDatabase).</li>
+ *         <li><b>DB_USER</b> - Database username.</li>
+ *         <li><b>DB_PASSWORD</b> - Database password.</li>
+ *     </ul>
+ *     Intended to be used with environment variables in IntelliJ.
+ * </p>
+ * <p>
+ *     <b>Setup instructions:</b>
+ *     <ol>
+ *         <li>Create a <code>.env</code> file.</li>
+ *         <li>Add the required variables (DB_URL, DB_USER, DB_PASSWORD).</li>
+ *         <li>Link the .env file in the run configurations.</li>
+ *
+ *     </ol>
+ * </p>
+ * @author Axel
+ * @since 2026
+ */
 public class DatabaseManager {
-    /*
-    !!!FOR MYSQL IN INTELLIJ!!!
-    Create a .env file
-    Link the .env file through launcher configurations
-    Set DB_URL to the url to the database (e.g. jdbc:mysql://localhost:3306/MyDatabase)
-    Set DB_USER to the username of the MySQL database
-    set DB_PASSWORD to the password of the MySQL database
-    */
+    /**
+     * Database connection URL.
+     */
     private static final String URL = System.getenv("DB_URL");
+    /**
+     * Database username.
+     */
     private static final String USERNAME = System.getenv("DB_USER");
+    /**
+     * Database password.
+     */
     private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
+    /**
+     * Creates and returns a new database connection.
+     * @return a {@link Connection} to the configured database.
+     * @throws SQLException if a connection error occurs.
+     * @throws IllegalStateException if environment variables aren't set.
+     */
     public static Connection getConnection() throws SQLException {
+       if(URL == null || USERNAME == null || PASSWORD == null) {
+           throw new IllegalStateException("Database environment variables not set. Enable in run configurations.");
+       }
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 }

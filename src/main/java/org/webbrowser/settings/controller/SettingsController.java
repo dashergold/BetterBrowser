@@ -16,22 +16,41 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-//todo figure out how to separate the xml from this class into the ConfigManager class
-//todo this class should only be used to handle changes from the javafx scene (rn default browser)
-
 /**
- * @since 2026
+ * Controller responsible for handling the settings view.
+ * <p>
+ *     This class manages:
+ *     <ul>
+ *         <li>Selecting and saving a default browser.</li>
+ *         <li>Displaying the current account information.</li>
+ *         <li>Opening the account management window.</li>
+ *     </ul>
+ * </p>
  * @author Axel
+ * @since 2026
  */
 public class SettingsController {
+    /**
+     * Service responsible for handling settings.
+     */
     private final SettingsService settingsService = SettingsService.getInstance();
-
+    /**
+     * Label displaying the current account.
+     */
     @FXML
     private Label currentAcc;
-
+    /**
+     * Dropdown for selecting the default browser.
+     */
     @FXML
     private ComboBox<String> defaultBrowserSelectionBox;
 
+    /**
+     * Initializes the settings view.
+     * <p>
+     *     Sets the current account label, and populates the default browser selection dropdown.
+     * </p>
+     */
     public void initialize() {
         Account account = settingsService.getCurrentAccount();
         currentAcc.setText(account.isRegistered() ? account.getUsername() : "not signed in");
@@ -40,17 +59,26 @@ public class SettingsController {
         defaultBrowserSelectionBox.getSelectionModel().select(settingsService.getDefaultBrowserLabel(defaultBrowser));
     }
 
+    /**
+     * Saves the selected browser settings.
+     */
     @FXML
     private void saveChanges() {
         String selectedBrowser = defaultBrowserSelectionBox.getValue();
         settingsService.saveDefaultBrowser(selectedBrowser);
     }
 
+    /**
+     * Opens the account management window.
+     */
     @FXML
     private void openAccountWindow() {
         settingsService.openAccountWindow();
     }
 
+    /**
+     * Closes the settings view.
+     */
     @FXML
     private void closeSettings() {
         settingsService.closeSettings();

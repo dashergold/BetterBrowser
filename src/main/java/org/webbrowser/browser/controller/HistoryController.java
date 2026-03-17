@@ -11,27 +11,55 @@ import org.webbrowser.browser.repository.HistoryRepository;
 import org.webbrowser.browser.service.HistoryService;
 
 import java.sql.*;
-//TODO THIS AND ACCOUNT SQL SHOULD BE MOVED TO A SEPARATE FILE E.G. "SQLHANDLER"
+
 
 /**
+ * Controller responsible for displaying and managing browsing history.
+ * <p>
+ * This controller:
+ * <ul>
+ *     <li>Loads the current users browsing history.</li>
+ *     <li>Displays it in a table view.</li>
+ *     <li>Allows the user to delete their history.</li>
+ * </ul>
  * @author Axel
  * @since 2026
  */
 public class HistoryController {
-
+    /**
+     * Service used to retrieve the current account.
+     */
     private final AccountService accountService = AccountService.getInstance();
+    /**
+     * Service responsible for history related operations.
+     */
     private final HistoryService historyService = HistoryService.getInstance();
+    /**
+     * The currently logged in account.
+     */
     private Account account;
-
+    /**
+     * Table displaying the browser history.
+     */
     @FXML
     private TableView<HistoryEntry> historyTable;
+    /**
+     * Column displaying the visit date.
+     */
     @FXML
     private TableColumn<HistoryEntry, String> dateCol;
+    /**
+     * Column displaying the visited URL.
+     */
     @FXML
     private TableColumn<HistoryEntry, String> urlCol;
 
+    /**
+     * Initializes the controller after the FXML has been loaded.
+     * <p>
+     * Configures table columns and loads the browsing history for the current account.
+     */
     public void initialize() {
-        historyTable.getItems().clear();
         account= accountService.getCurrentAccount();
         dateCol.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDate())
@@ -40,17 +68,13 @@ public class HistoryController {
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUrl())
         );
         historyTable.setItems(historyService.loadHistory(account));
-
     }
-
+    /**
+     * Deletes the browsing history for the current account and clears the table view.
+     */
     @FXML
     private void deleteHistory() {
         historyService.deleteHistory(account);
         historyTable.getItems().clear();
     }
-
-
-
-
-
 }
