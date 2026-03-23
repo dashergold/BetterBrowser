@@ -3,14 +3,19 @@ package org.webbrowser.browser.controller;
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import org.webbrowser.browser.service.HistoryService;
 import org.webbrowser.browser.service.TabService;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -37,6 +42,7 @@ public class TabController {
      * Service responsible for storing browser history.
      */
     private final HistoryService historyService = HistoryService.getInstance();
+
     /**
      * Service responsible for handling {@link WebView} operations.
      */
@@ -65,6 +71,11 @@ public class TabController {
      */
     @FXML
     private WebView webView;
+    /**
+     * Root container for the tab window.
+     */
+    @FXML
+    private BorderPane tabRootPane;
 
     /**
      * Initializes the tab after the FXML has been loaded.
@@ -74,6 +85,7 @@ public class TabController {
      *     <li>Default page loading.</li>
      *     <li>Navigation button bindings.</li>
      *     <li>Title and location listeners</li>
+     *     <li>Listen for if the developer console is opened</li>
      * </ul>
      */
     public void initialize() {
@@ -88,6 +100,11 @@ public class TabController {
 
         titleHandler();
         locationHandler();
+        tabRootPane.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.F12) {
+                tabService.openDeveloperConsole(tabRootPane);
+            }
+        });
     }
 
     /**

@@ -1,8 +1,15 @@
 package org.webbrowser.browser.service;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
+import org.webbrowser.browser.controller.ConsoleController;
+
+import java.io.IOException;
+
 /**
  * Service responsible for managing a single browser tabs WebView.
  * <p>
@@ -72,6 +79,28 @@ public class TabService {
      */
     public void reload() {
         engine.reload();
+    }
+
+    /**
+     * Sets the bottom of the tab to the console window.
+     * @param tabRootPane The tabs root pane.
+     */
+    public void openDeveloperConsole(BorderPane tabRootPane) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/browser/console.fxml"));
+        Parent console = null;
+        try {
+            console = loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        tabRootPane.setBottom(console);
+        ConsoleController controller = loader.getController();
+        controller.setRootPane(tabRootPane);
+        try {
+            controller.setHtmlArea(engine.getLocation());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
