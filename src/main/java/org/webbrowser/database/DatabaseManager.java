@@ -9,9 +9,9 @@ import java.sql.SQLException;
  * <p>
  *     Uses environment variables to configure the connections:
  *     <ul>
- *         <li><b>DB_URL</b> - JDBC URL (e.g. jdbc:mysql://localhost:3306/MyDatabase).</li>
- *         <li><b>DB_USER</b> - Database username.</li>
- *         <li><b>DB_PASSWORD</b> - Database password.</li>
+ *         <li><b>REMOTE_DB_URL</b> - JDBC URL (e.g. jdbc:mysql://localhost:3306/MyDatabase).</li>
+ *         <li><b>REMOTE_DB_USER</b> - Database username.</li>
+ *         <li><b>REMOTE_DB_PASSWORD</b> - Database password.</li>
  *     </ul>
  *     Intended to be used with environment variables in IntelliJ.
  * </p>
@@ -19,7 +19,7 @@ import java.sql.SQLException;
  *     <b>Setup instructions:</b>
  *     <ol>
  *         <li>Create a <code>.env</code> file.</li>
- *         <li>Add the required variables (DB_URL, DB_USER, DB_PASSWORD).</li>
+ *         <li>Add the required variables (REMOTE_DB_URL, REMOTE_DB_USER, REMOTE_DB_PASSWORD).</li>
  *         <li>Link the .env file in the run configurations.</li>
  *
  *     </ol>
@@ -31,15 +31,15 @@ public class DatabaseManager {
     /**
      * Database connection URL.
      */
-    private static final String URL = System.getenv("DB_URL");
+    private static final String URL = System.getenv("REMOTE_DB_URL");
     /**
      * Database username.
      */
-    private static final String USERNAME = System.getenv("DB_USER");
+    private static final String USERNAME = System.getenv("REMOTE_DB_USER");
     /**
      * Database password.
      */
-    private static final String PASSWORD = System.getenv("DB_PASSWORD");
+    private static final String PASSWORD = System.getenv("REMOTE_DB_PASSWORD");
 
     /**
      * Creates and returns a new database connection.
