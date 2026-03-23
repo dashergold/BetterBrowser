@@ -114,8 +114,6 @@ public class ChatServerCreationController {
         chatService.setClient(client);
         Server server = ServerManager.getInstance().createServer(ip, port, () -> {
 
-
-
             Thread cThread = new Thread(client);
             cThread.setDaemon(true);
             cThread.start();

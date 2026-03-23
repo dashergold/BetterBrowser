@@ -8,6 +8,7 @@ module org.webbrowser.browser {
     requires org.jdom2;
     requires jakarta.activation;
     requires jakarta.mail;
+    requires jbcrypt;
 
     opens org.webbrowser.browser to javafx.fxml;
     opens org.webbrowser.settings to javafx.fxml;
