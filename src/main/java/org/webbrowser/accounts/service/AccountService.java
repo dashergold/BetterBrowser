@@ -1,5 +1,6 @@
 package org.webbrowser.accounts.service;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.repository.AccountRepository;
 import org.webbrowser.settings.ConfigManager;
@@ -81,7 +82,7 @@ public class AccountService {
         if (!account.isRegistered()) {
             throw new Exception(email + " is not linked to an account");
         }
-        if (!account.getPassword().equals(password)) {
+        if (!BCrypt.checkpw(password, account.getPassword())) {
             throw new Exception("Invalid password");
         }
         currentAccount = account;

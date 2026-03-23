@@ -1,5 +1,6 @@
 package org.webbrowser.accounts.repository;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.database.DatabaseManager;
 
@@ -45,7 +46,7 @@ public class AccountRepository {
 
         pstmt.setString(1,account.getEmail());
         pstmt.setString(2,account.getUsername());
-        pstmt.setString(3,account.getPassword());
+        pstmt.setString(3, BCrypt.hashpw(account.getPassword(),BCrypt.gensalt()));
 
         pstmt.executeUpdate();
     }
