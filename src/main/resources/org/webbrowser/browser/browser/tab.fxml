@@ -9,8 +9,8 @@
     <top>
         <HBox fx:id="nav" alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="1044.0">
             <children>
-                <Button fx:id="backButton" minWidth="30" mnemonicParsing="false" onAction="#backward" text="&lt;-" />
-                <Button fx:id="forwardButton" minWidth="30" mnemonicParsing="false" onAction="#forward" text="-&gt;" />
+                <Button fx:id="backButton" minWidth="30" mnemonicParsing="false" onAction="#backward" text="←" />
+                <Button fx:id="forwardButton" minWidth="30" mnemonicParsing="false" onAction="#forward" text="→" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0" text="⟳" minWidth="30" onAction="#reload"/>
                 <TextField fx:id="searchField" alignment="CENTER_LEFT" onAction="#enterURLContent" prefHeight="26.0" prefWidth="892.0" HBox.hgrow="ALWAYS" />
                 <Button fx:id="searchButton" minWidth="70" mnemonicParsing="false" onAction="#enterURLContent" text="Search">

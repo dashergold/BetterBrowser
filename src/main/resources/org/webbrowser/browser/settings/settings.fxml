@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.settings.controller.SettingsController">
+<FlowPane fx:id="settingsWindow" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.settings.controller.SettingsController">
    <children>
        <VBox alignment="TOP_RIGHT">
            <Button mnemonicParsing="false" onAction="#closeSettings" text="Close" />

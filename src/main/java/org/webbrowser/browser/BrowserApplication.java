@@ -41,6 +41,7 @@ public class BrowserApplication extends Application {
      * Called when the JavaFX application starts.
      * <p>
      * Loads the main FXML view and displays the stage.
+     * Sets the css stylesheet for the FXML.
      * @param stage the primary stage.
      * @throws IOException if the FXML file can't be loaded.
      */
@@ -51,6 +52,7 @@ public class BrowserApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(BrowserApplication.class.getResource("/org/webbrowser/browser/browser/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 700); //default at 1920x1080
+        scene.getStylesheets().add(getClass().getResource("/org/webbrowser/browser/style/style.css").toExternalForm());
 
         primaryStage.setTitle("Browser");
         primaryStage.setScene(scene);
