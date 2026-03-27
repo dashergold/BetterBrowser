@@ -7,7 +7,7 @@
    <children>
       <FlowPane alignment="TOP_RIGHT" prefHeight="39.0" prefWidth="400.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#close" text="Close" />
+            <Button styleClass="closeButton" mnemonicParsing="false" onAction="#close" text="Close" />
          </children>
       </FlowPane>
       <Label text="Join a server:" />

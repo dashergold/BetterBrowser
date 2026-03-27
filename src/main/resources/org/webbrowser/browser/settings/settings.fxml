@@ -3,11 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane fx:id="settingsWindow" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.settings.controller.SettingsController">
+<FlowPane fx:id="settingsWindow" alignment="TOP_RIGHT" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.webbrowser.settings.controller.SettingsController">
    <children>
        <VBox alignment="TOP_RIGHT">
-           <Button mnemonicParsing="false" onAction="#closeSettings" text="Close" />
-          <GridPane prefHeight="91.0" prefWidth="399.0">
+           <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#closeSettings" styleClass="closeButton" text="Close" StackPane.alignment="TOP_RIGHT" />
+       </VBox>
+       <VBox spacing="10"  styleClass="sideContent">
+
+          <GridPane vgap="30" prefHeight="91.0" prefWidth="399.0">
             <columnConstraints>
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,7 +28,7 @@
 
 
                  </FlowPane>
-                <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <FlowPane hgap="10" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="accountSettingsInfo">
                    <children>
                       <Label fx:id="currentAcc" text="test" />
                       <Button mnemonicParsing="false" onAction="#openAccountWindow" text="Account settings" />

@@ -9,7 +9,7 @@
          <children>
             <Label text="Label" fx:id="connectionLabel"/>
             <Button mnemonicParsing="false" text="Leave room" onAction="#disconnectClient"/>
-            <Button onAction="#close" text="Close" />
+            <Button onAction="#close" text="Close" styleClass="closeButton"/>
          </children>
       </FlowPane>
       <TextArea fx:id="messagesField" editable="false" prefHeight="294.0" prefWidth="400.0" VBox.vgrow="ALWAYS" />

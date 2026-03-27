@@ -1,15 +1,23 @@
+
 .root {
-    -fx-background-color: #2b2b2b ;
+    -fx-background-color: #2b2b2b;
     -fx-text-fill: #FFFFFF;
 }
+
+.label {
+    -fx-text-fill: #FFFFFF;
+}
+
+
 .tab-pane {
     -fx-background-color: #383838;
-    -fx-color: #383838;
 }
+
 .tab-pane .tab-header-area {
     -fx-background-color: #383838;
     -fx-padding: 5 5 0 5;
 }
+
 .tab-pane .tab-header-background {
     -fx-background-color: #2b2b2b;
 }
@@ -21,51 +29,43 @@
     -fx-border-width: 0;
     -fx-padding: 6 15 6 15;
 }
+
 .tab-label {
     -fx-text-fill: #FFFFFF;
-
 }
+
 .tab:selected {
     -fx-background-color: #4e5254;
 }
+
 .tab:hover {
     -fx-background-color: #3b3b3b;
 }
 
-.label {
-    -fx-text-fill: #FFFFFF;
-}
-/* Top navigation bar */
+
 #nav {
     -fx-padding: 6;
     -fx-spacing: 6;
 }
 
-/* Buttons */
 .button {
     -fx-background-color: #3c4043;
     -fx-text-fill: #e8eaed;
-
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-
     -fx-border-color: #5f6368;
     -fx-border-width: 1;
-
     -fx-font-size: 13px;
 }
 
-/* Button hover */
 .button:hover {
     -fx-background-color: #5f6368;
 }
 
-/* Button pressed */
 .button:pressed {
     -fx-background-color: #787c80;
 }
 
-/* Navigation buttons (back/forward/reload) */
 #backButton,
 #forwardButton {
     -fx-font-weight: bold;
@@ -73,75 +73,76 @@
 }
 
 
-
 #searchButton:hover {
     -fx-border-color: #1a73e8;
     -fx-background-color: #3b82f6;
 }
 
-/* Address / search bar */
+
 .text-field {
     -fx-background-color: #303134;
     -fx-text-fill: #e8eaed;
-
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-
     -fx-border-color: #5f6368;
     -fx-border-width: 1;
-
     -fx-prompt-text-fill: #9aa0a6;
 }
 
-/* When focused */
 #searchField:focused {
     -fx-border-color: #1a73e8;
 }
 
-#settingsWindow, #chatWindow, #chatPromptWindow, #chatServerWindow {
+
+#settingsWindow,
+#chatWindow,
+#chatPromptWindow,
+#chatServerWindow {
     -fx-background-color: #222222;
-    -fx-padding: 15;
+
 }
-.vbox {
+
+#accountSettingsInfo {
+
+}
+
+.sideContent{
     -fx-spacing: 10;
+    -fx-padding: 15;
 }
 
 .combo-box {
     -fx-background-color: #303134;
     -fx-border-color: #5f6368;
-
     -fx-background-radius: 0;
     -fx-border-radius: 0;
 }
 
-/* Text inside ComboBox */
-.combo-box .list-cell {
-    -fx-text-fill: #e8eaed;
-}
-
-/* Selected item text */
-.combo-box .text {
-    -fx-fill: #e8eaed;
-}
-/* Dropdown background */
-.combo-box-popup .list-view {
-    -fx-background-color: #303134;
-    -fx-border-color: #5f6368;
-}
-
-/* Dropdown items */
+.combo-box .list-cell,
 .combo-box-popup .list-cell {
     -fx-background-color: #303134;
     -fx-text-fill: #e8eaed;
 }
 
-/* Hover item */
+.combo-box .text {
+    -fx-fill: #e8eaed;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #303134;
+    -fx-border-color: #5f6368;
+}
+
 .combo-box-popup .list-cell:hover {
     -fx-background-color: #5f6368;
 }
 
-/* Selected item */
 .combo-box-popup .list-cell:selected {
     -fx-background-color: #4e5254;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
 }
+
+.closeButton:hover {
+    -fx-background-color: red;
+}
+

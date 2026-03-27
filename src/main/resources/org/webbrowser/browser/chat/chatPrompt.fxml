@@ -7,7 +7,7 @@
    <children>
       <FlowPane alignment="TOP_RIGHT" prefHeight="46.0" prefWidth="400.0">
          <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Close" onAction="#close"/>
+            <Button styleClass="closeButton" contentDisplay="CENTER" mnemonicParsing="false" text="Close" onAction="#close"/>
          </children>
       </FlowPane>
       <Label text="You need to be signed in to an account in order to use the chat feature" />
