@@ -31,7 +31,7 @@
                   <Hyperlink onAction="#goToRegister" text="Register" />
                </children>
             </FlowPane>
-            <Label text="" fx:id="errorLabel"/>
+            <Label text="" fx:id="errorLabel" styleClass="warningLabel"/>
          </children>
       </VBox>
    </center>

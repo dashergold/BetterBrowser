@@ -51,11 +51,12 @@ public class BrowserApplication extends Application {
         configManager.loadConfig();
 
         FXMLLoader fxmlLoader = new FXMLLoader(BrowserApplication.class.getResource("/org/webbrowser/browser/browser/main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 700); //default at 1920x1080
+        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080); //default at 1920x1080
         scene.getStylesheets().add(getClass().getResource("/org/webbrowser/browser/style/style.css").toExternalForm());
 
         primaryStage.setTitle("Browser");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 

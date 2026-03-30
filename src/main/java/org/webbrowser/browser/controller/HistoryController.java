@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Region;
 import org.webbrowser.accounts.Account;
 import org.webbrowser.accounts.service.AccountService;
 import org.webbrowser.browser.HistoryEntry;
@@ -60,7 +61,12 @@ public class HistoryController {
      * Configures table columns and loads the browsing history for the current account.
      */
     public void initialize() {
+        historyTable.setMaxWidth(Double.MAX_VALUE);
+        historyTable.setMaxHeight(Double.MAX_VALUE);
         account= accountService.getCurrentAccount();
+        historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        dateCol.setPrefWidth(180);
+        urlCol.setPrefWidth(400);
         dateCol.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDate())
         );
@@ -68,6 +74,11 @@ public class HistoryController {
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUrl())
         );
         historyTable.setItems(historyService.loadHistory(account));
+        if (historyTable.getParent() instanceof Region) {
+            Region parent = (Region) historyTable.getParent();
+            parent.setMaxWidth(Double.MAX_VALUE);
+            parent.setMaxHeight(Double.MAX_VALUE);
+        }
     }
     /**
      * Deletes the browsing history for the current account and clears the table view.

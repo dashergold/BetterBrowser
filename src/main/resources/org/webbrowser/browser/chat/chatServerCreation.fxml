@@ -10,34 +10,69 @@
             <Button styleClass="closeButton" mnemonicParsing="false" onAction="#close" text="Close" />
          </children>
       </FlowPane>
-      <Label text="Join a server:" />
-      <FlowPane alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0">
-         <children>
-            <Label text="IP:" />
-            <TextField fx:id="joinIpField" />
-         </children>
-      </FlowPane>
-      <FlowPane alignment="TOP_CENTER" prefHeight="47.0" prefWidth="600.0">
-         <children>
-            <Label text="Port:" />
-            <TextField fx:id="joinPortField" />
-         </children>
-      </FlowPane>
-      <Button mnemonicParsing="false" onAction="#joinServer" text="Go" />
-       <Label text="Create a server:" />
-       <FlowPane alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0">
+       <VBox spacing="10" styleClass="sideContent">
            <children>
-               <Label text="IP:" />
-               <TextField fx:id="createIpField" />
+              <Label text="Join a server:" />
+               <GridPane hgap="10" vgap="10">
+                   <columnConstraints>
+                       <ColumnConstraints minWidth="50"/>
+                       <ColumnConstraints hgrow="ALWAYS"/>
+                   </columnConstraints>
+                   <children>
+                       <Label text="IP:" GridPane.rowIndex="0"/>
+                       <TextField fx:id="joinIpField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                       <Label text="Port:" GridPane.rowIndex="1"/>
+                       <TextField fx:id="joinPortField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                   </children>
+               </GridPane>
+              <Button mnemonicParsing="false" onAction="#joinServer" text="Go" />
            </children>
-       </FlowPane>
-       <FlowPane alignment="TOP_CENTER" prefHeight="47.0" prefWidth="600.0">
+       </VBox>
+       <!-- LARGE GAP BETWEEN SECTIONS -->
+       <Region prefHeight="40"/>
+
+
+       <!-- CREATE SECTION -->
+       <VBox spacing="10" styleClass="sideContent">
+
            <children>
-               <Label text="Port:" />
-               <TextField fx:id="createPortField" />
+
+               <Label text="Create a server:"/>
+
+               <GridPane hgap="10" vgap="10">
+
+                   <columnConstraints>
+                       <ColumnConstraints minWidth="50"/>
+                       <ColumnConstraints hgrow="ALWAYS"/>
+                   </columnConstraints>
+
+                   <children>
+
+                       <Label text="IP:"
+                              GridPane.rowIndex="0"/>
+
+                       <TextField fx:id="createIpField"
+                                  GridPane.columnIndex="1"
+                                  GridPane.rowIndex="0"/>
+
+                       <Label text="Port:"
+                              GridPane.rowIndex="1"/>
+
+                       <TextField fx:id="createPortField"
+                                  GridPane.columnIndex="1"
+                                  GridPane.rowIndex="1"/>
+
+                   </children>
+
+               </GridPane>
+
+               <Button mnemonicParsing="false"
+                       onAction="#createServer"
+                       text="Go"/>
+
            </children>
-       </FlowPane>
-       <Button mnemonicParsing="false" onAction="#createServer" text="Go" />
+
+       </VBox>
       <Label text="" fx:id="warningLabel"/>
    </children>
 </VBox>

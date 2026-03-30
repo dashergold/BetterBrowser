@@ -28,7 +28,7 @@
 
 
                  </FlowPane>
-                <FlowPane hgap="10" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="accountSettingsInfo">
+                <FlowPane hgap="10" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                    <children>
                       <Label fx:id="currentAcc" text="test" />
                       <Button mnemonicParsing="false" onAction="#openAccountWindow" text="Account settings" />

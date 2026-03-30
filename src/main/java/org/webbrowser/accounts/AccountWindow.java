@@ -47,6 +47,8 @@ public class AccountWindow {
             loader = new FXMLLoader(getClass().getResource("/org/webbrowser/browser/account/accountSignIn.fxml"));
         }
         Scene scene = new Scene(loader.load(),400,400);
+        scene.getStylesheets().add(getClass().getResource("/org/webbrowser/browser/style/style.css").toExternalForm());
+
         stage = new Stage();
         stage.setTitle("Account manager");
         stage.setScene(scene);
@@ -62,6 +64,7 @@ public class AccountWindow {
     public static void switchScene(String fxml) throws IOException{
         FXMLLoader loader = new FXMLLoader(AccountWindow.class.getResource(fxml));
         Scene scene = new Scene(loader.load(),400,400);
+
         stage.setScene(scene);
     }
 }
