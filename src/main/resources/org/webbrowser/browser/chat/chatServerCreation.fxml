@@ -28,11 +28,9 @@
               <Button mnemonicParsing="false" onAction="#joinServer" text="Go" />
            </children>
        </VBox>
-       <!-- LARGE GAP BETWEEN SECTIONS -->
        <Region prefHeight="40"/>
 
 
-       <!-- CREATE SECTION -->
        <VBox spacing="10" styleClass="sideContent">
 
            <children>
@@ -48,27 +46,19 @@
 
                    <children>
 
-                       <Label text="IP:"
-                              GridPane.rowIndex="0"/>
+                       <Label text="IP:" GridPane.rowIndex="0"/>
 
-                       <TextField fx:id="createIpField"
-                                  GridPane.columnIndex="1"
-                                  GridPane.rowIndex="0"/>
+                       <TextField fx:id="createIpField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                       <Label text="Port:"
-                              GridPane.rowIndex="1"/>
+                       <Label text="Port:" GridPane.rowIndex="1"/>
 
-                       <TextField fx:id="createPortField"
-                                  GridPane.columnIndex="1"
-                                  GridPane.rowIndex="1"/>
+                       <TextField fx:id="createPortField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
                    </children>
 
                </GridPane>
 
-               <Button mnemonicParsing="false"
-                       onAction="#createServer"
-                       text="Go"/>
+               <Button mnemonicParsing="false" onAction="#createServer" text="Go"/>
 
            </children>
 

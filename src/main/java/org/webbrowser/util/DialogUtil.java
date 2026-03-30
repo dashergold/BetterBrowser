@@ -31,6 +31,7 @@ public class DialogUtil {
         dialog.setHeaderText("enter code sent to " +email);
         dialog.setContentText("code: ");
         dialog.setGraphic(null);
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/org/webbrowser/browser/style/style.css").toExternalForm());
 
         Optional<String> result = dialog.showAndWait();
         if(result.isPresent()) {
@@ -50,6 +51,7 @@ public class DialogUtil {
         warning.setHeaderText("You are about to delete the account " + username+".");
         warning.setContentText("This action is irreversible. Do you wish to proceed?");
         warning.setGraphic(null);
+        warning.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/org/webbrowser/browser/style/style.css").toExternalForm());
 
         Optional<ButtonType> result = warning.showAndWait();
         return (result.isPresent() && result.get() == ButtonType.OK);

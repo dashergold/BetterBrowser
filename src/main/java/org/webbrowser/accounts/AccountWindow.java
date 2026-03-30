@@ -64,7 +64,8 @@ public class AccountWindow {
     public static void switchScene(String fxml) throws IOException{
         FXMLLoader loader = new FXMLLoader(AccountWindow.class.getResource(fxml));
         Scene scene = new Scene(loader.load(),400,400);
-
+        String stylesheet = AccountWindow.class.getResource("/org/webbrowser/browser/style/style.css").toExternalForm();
+        scene.getStylesheets().add(stylesheet);
         stage.setScene(scene);
     }
 }
